@@ -88,16 +88,11 @@ button {
 }
 
 #title {
-	position: fixed;
-	bottom: 28px;
-	left: 50%;
-	transform: translateX(-50%);
 	font-weight: 600;
 	font-size: 11px;
 	letter-spacing: 3px;
 	color: rgba(255,255,255,0.4);
 	white-space: nowrap;
-	z-index: 10;
 }
 
 
