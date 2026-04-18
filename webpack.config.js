@@ -3,6 +3,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 
 module.exports = {
+	performance: {
+		maxAssetSize: 300000,
+		maxEntrypointSize: 600000,
+	},
 	output: {
 		// filename: 'bundle.js',
 		// filename: '[name].bundle.js',
