@@ -9,7 +9,6 @@ import config from '../settings/config'
 import choicesFilterTool from './filter'
 import canvasInteractionTool from './canvasInteractionTool'
 import displayConfig from './displayConfig'
-import yearSlider from './yearSlider'
 
 import a from '../tools/affinities'
 import state from '../settings/state'
@@ -84,16 +83,10 @@ export default () => {
 		that.map.updateImage()
 	}
 
-	/******************************************************************************
-	 * Get an eventListener to handle window.onResize events
-	 ******************************************************************************/
 	const onWindowResize = () => {
 		const div = document.getElementById('diagram')
-
 		config.screen.width = div.clientWidth * config.screen.density
 		config.screen.height = div.clientHeight * config.screen.density
-
-		// TODO : re-activate
 		that.map.setCanvasSize()
 		that.map.updateImage()
 	}
@@ -103,75 +96,29 @@ export default () => {
 	 ******************************************************************************/
 
 	const modal = document.getElementById('credits')
-	// const btn = document.getElementById('readMore')
 	const close = document.getElementById('credits-close-btn')
-
-	const aboutBtn = document.getElementById('about')
-	const usrGd = document.getElementById('usrGd')
-	const readM = document.getElementById('readM')
-	const feedb = document.getElementById('feedb')
 
 	close.onclick = () => modal.style.display = 'none'
 
-
 	const modalClick = dp => {
-
-		// about is now a button
 		select('#about').on('click', () => {
 			modal.style.display = 'block'
 			dp.closePanel()
-
-			document.getElementById('credits-close-btn').scrollIntoView()
 		})
 
 		window.onclick = event => {
-			if (event.target === modal) {
-				modal.style.display = 'none'
-			} else {
-
-				switch (event.target) {
-					case aboutBtn: {
-						modal.style.display = 'block'
-						dp.closePanel()
-
-						document.getElementById('credits-close-btn').scrollIntoView()
-						break
-					}
-					case usrGd: {
-						modal.style.display = 'block'
-						dp.closePanel()
-
-						document.getElementById('2userguide').scrollIntoView()
-						break
-					}
-					case readM: {
-						modal.style.display = 'block'
-						dp.closePanel()
-
-						document.getElementById('3readingthemap').scrollIntoView()
-						break
-					}
-					case feedb: {
-						modal.style.display = 'block'
-						dp.closePanel()
-						document.getElementById('4feedbacksuggestedonlyforenacresearchers').scrollIntoView()
-						break
-					}
-				}
-			}
+			if (event.target === modal) modal.style.display = 'none'
 		}
-
 	}
 
 	/******************************************************************************
 	 * Finish the UI initialization, once the data are arrived
 	 ******************************************************************************/
-	// const resetFilter = () => {
-	// 	state.initGraphs(state.initialGraph)
-
-	// 	that.map.restart()
-	// 	that.cft.reset()
-	// }
+	const resetFilter = () => {
+		state.epGraph.nodes.forEach(n => n.visibility = true)
+		that.map.updateImage()
+		if (that.cft) that.cft.reset()
+	}
 
 	that.reInit = data => {
 		state.initGraphs(data.graph)
@@ -189,8 +136,6 @@ export default () => {
 
 	that.init = (data, privateAccess) => {
 
-		console.log(privateAccess)
-
 		initData(data)
 		initKeywords(data.graph.nodes)
 		state.initGraphs(data.graph)
@@ -203,8 +148,6 @@ export default () => {
 			that.cft = choicesFilterTool(previewLabSet, filterLabs).init()
 		} else { document.getElementById('input_bar').style = 'display:none' }
 
-		// yearSlider(data.description.availableYears).init(that)
-		
 		that.map = Map()
 
 		checkboxes(that.map)
