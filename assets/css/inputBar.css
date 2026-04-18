@@ -93,6 +93,11 @@
 }
 
 /* The div containing the choices.js widget */
-#searchBar{
+#searchBar {
 	flex-grow: 1;
+	min-width: 0;
+}
+
+#searchBar .choices {
+	width: 100%;
 }
