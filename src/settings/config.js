@@ -8,7 +8,7 @@ export default {
 		distance: 130,
 		gap: .8,
 		min: .2,
-		max: 2.5,
+		max: 6,
 		radius: 55,
 		scholarThickness: 2,
 	},
