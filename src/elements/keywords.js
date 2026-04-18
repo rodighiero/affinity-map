@@ -63,7 +63,7 @@ export default (links, isAlmostConverged, clbk) => {
 			const shared = sharedKeywords(n1.attr.name, n2.attr.name)
 			if (shared.length > 0) {
 				ready.push({
-					keywords: shared.slice(0, 5),
+					keywords: shared.slice(0, 3),
 					color: setColor(n1.attr.name, n2.attr.name, links),
 					x: Math.min(n1.x, n2.x) + dx / 2,
 					y: Math.min(n1.y, n2.y) + dy / 2,

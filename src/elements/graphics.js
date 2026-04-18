@@ -69,13 +69,14 @@ export const drawInnerCircle = (r, fill, context) => {
 	context.fill()
 }
 
-const lineSpacing = 5
-const maxKeywords = 10
+const fontSize    = 5
+const lineSpacing = 7
+const maxKeywords = 3
 
 export const drawKeywords = pairs => {
 	pairs.forEach(pair => {
 		state.context.beginPath()
-		state.context.font = 'normal 500 8px Arial'
+		state.context.font = `normal 500 ${fontSize}px Arial`
 		state.context.textAlign = 'center'
 		state.context.fillStyle = pair.color
 		state.context.fill()
