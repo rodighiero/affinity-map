@@ -72,21 +72,25 @@ export default (previewLabSet, filterLabs) => {
 	}
 
 	const callbackOnCreateTemplates = function (template) {
-		const { classNames } = this.config
 		return {
-			item: data =>
-				template(`
+			// v11: template functions receive (config, data, ...) not just (data)
+			item: (config, data) => {
+				const { classNames } = config
+				return template(`
 					<div class="${classNames.item} ${data.highlighted ? classNames.highlightedState : classNames.itemSelectable}" data-item data-id="${data.id}" data-value="${data.value}" ${data.active ? 'aria-selected="true"' : ''} ${data.disabled ? 'aria-disabled="true"' : ''}>
 						${data.customProperties ? invCats[data.customProperties.cat] + ': ' : ''}${data.label}
 						<span class="choices__button" data-button aria-label="Remove item: '${data.value}'">x</span>
 					</div>
-				`),
-			choice: data =>
-				template(`
+				`)
+			},
+			choice: (config, data) => {
+				const { classNames } = config
+				return template(`
 					<div class="${classNames.item} ${classNames.itemChoice} ${data.disabled ? classNames.itemDisabled : classNames.itemSelectable}" data-choice ${data.disabled ? 'data-choice-disabled aria-disabled="true"' : 'data-choice-selectable'} data-id="${data.id}" data-value="${data.value}" ${data.groupId > 0 ? 'role="treeitem"' : 'role="option"'}>
 						${data.label}${data.customProperties && data.customProperties.acronym ? ` <span class="labacronym">${data.customProperties.acronym}</span>` : ''}
 					</div>
-				`),
+				`)
+			},
 		}
 	}
 
@@ -121,9 +125,8 @@ export default (previewLabSet, filterLabs) => {
 		else previewItems()
 	}
 
-	const onHighlightChoice = ({ detail }) => {
-		const labSet = detail.customProperties.labs.reduce((o, v) => o.add(v), new Set())
-		previewLabSet(that.graph, labSet)
+	const onHighlightChoice = () => {
+		// v11: highlightChoice event no longer includes choice data, skip preview on hover
 	}
 
 	const onAddItem = e => {
