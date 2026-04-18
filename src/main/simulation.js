@@ -78,8 +78,12 @@ const Simulation = map => {
 			.force('charge', forceManyBody().strength(500))
 			.force('center', forceCenter(0, 0))
 
-		// let initialZoom = false
 		map.isConverged = false
+
+		// Pre-heat: run silently so nodes start in a spread position,
+		// avoiding the narrow-column artifact on first render.
+		that.simulation.tick(150)
+
 		const alphaDecay = that.simulation.alphaDecay()
 		const alphaMin = that.simulation.alphaMin()
 
@@ -88,8 +92,6 @@ const Simulation = map => {
 
 		that.simulation
 			.on('tick', function () {
-				// map.lockAnimation(true)
-
 				if (this.iTicks === numberOfTicks / 3) {
 					map.isConverged = true
 					zoomToExtent(3000)
