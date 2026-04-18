@@ -5,6 +5,9 @@ import state from '../settings/state'
 import { capitalize } from '../tools/generalTools'
 import { CE } from '../elements/cachedElements'
 
+const SIZE = 20
+const R = 7
+
 export default (map) => {
 	const that = {}
 
@@ -13,37 +16,44 @@ export default (map) => {
 			acronym: d,
 			name: capitalize(a.name(d)),
 			isSatellite: a.isSatellite(d),
+			active: a.defaultStatus(d),
 			clbk(checked) {
 				state.activation[d] = checked
 				map.restart()
 				CE.flushNodes()
 			},
-			dft: a.defaultStatus(d),
 		}))
 
 		const root = select('#affinity-controls')
 		root.append('h3').text('Arrange by Affinities')
 
-		const items = root.selectAll('div.tglBtnContainer').data(affinities)
-		const item = items.enter().append('div')
-			.attr('class', d => d.isSatellite ? 'tglBtnContainer' : 'tglBtnContainer kw-affinity')
+		const item = root.selectAll('div.ring-toggle').data(affinities)
+			.enter().append('div')
+			.attr('class', d => d.isSatellite ? 'ring-toggle' : 'ring-toggle ring-keyword')
+			.style('cursor', 'pointer')
+			.on('click', function(event, d) {
+				d.active = !d.active
+				select(this).select('circle')
+					.attr('stroke', d.active ? '#EB5D00' : 'rgba(255,255,255,0.5)')
+				d.clbk(d.active)
+			})
 
 		item.filter(d => !d.isSatellite).append('div').attr('class', 'kw-divider')
 
-		const inputs = item.append('input')
-			.attr('type', 'checkbox')
-			.attr('class', 'tgl tgl-ios')
-			.attr('id', d => `${d.name}-btn`)
-			.property('checked', d => d.dft)
+		const svg = item.append('svg')
+			.attr('width', SIZE)
+			.attr('height', SIZE)
 
-		inputs.each(function(d) {
-			select(this).on('change', () => {
-				d.clbk(select(this).property('checked'))
-			})
-		})
+		svg.append('circle')
+			.attr('cx', SIZE / 2)
+			.attr('cy', SIZE / 2)
+			.attr('r', R)
+			.attr('fill', 'none')
+			.attr('stroke-width', d => d.isSatellite ? 3 : 2)
+			.attr('stroke-dasharray', d => d.isSatellite ? null : '3,2')
+			.attr('stroke', d => d.active ? '#EB5D00' : 'rgba(255,255,255,0.5)')
 
-		item.append('label').attr('class', 'tgl-btn').attr('for', d => `${d.name}-btn`)
-		item.append('text').text(d => d.isSatellite ? d.name : `# ${d.name}`)
+		item.append('span').text(d => d.isSatellite ? d.name : `# ${d.name}`)
 
 		return that
 	}

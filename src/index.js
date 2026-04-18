@@ -5,7 +5,6 @@ require('marx-css')
 
 require('../assets/css/mainSpinner.css')
 require('../assets/css/general.css')
-require('../assets/css/toggle.css')
 
 const json = require('../assets/data.json')
 

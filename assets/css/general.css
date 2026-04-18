@@ -184,39 +184,21 @@ button {
 	text-transform: uppercase;
 }
 
-#affinity-controls .tglBtnContainer {
+.ring-toggle {
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: center;
-	gap: 6px;
+	gap: 8px;
 }
 
-.tgl-btn {
-	display: inline-block!important;
-}
-
-.tgl+.tgl-btn {
-	height: 1.3em!important;
-	width: 2.5em!important;
-}
-
-.tglBtnContainer>text {
+.ring-toggle span {
 	font-size: 12px;
 	color: rgba(255,255,255,0.75);
 }
 
-.kw-affinity>text {
-	font-size: 12px;
+.ring-keyword span {
 	color: rgba(255,255,255,0.4);
 	font-style: italic;
-}
-
-.kw-affinity .tgl-ios + .tgl-btn {
-	background: rgba(255,255,255,0.2);
-}
-
-.kw-affinity .tgl-ios:checked + .tgl-btn {
-	background: rgba(235,93,0,0.5);
 }
 
 .kw-divider {
