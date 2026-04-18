@@ -3,25 +3,25 @@ export default {
 	// Node configuration
 	node: {
 		arc: {
-			max: 2,
+			max: 1.5,
 		},
-		distance: 110,
-		gap: 2,
-		min: .1,
-		max: 8,
+		distance: 130,
+		gap: 1,
+		min: .2,
+		max: 4,
 		radius: 55,
-		scholarThickness: 4,
+		scholarThickness: 3,
 	},
 
 	// Satellite configuration
 	satellite: {
 		width: {
 			empty: .2,
-			gap: .2,
+			gap: .3,
 			min: .2,
-			max: 3,
+			max: 2,
 		},
-		radius: 3,
+		radius: 4,
 	},
 
 	// Screen information
