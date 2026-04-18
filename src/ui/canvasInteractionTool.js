@@ -1,4 +1,4 @@
-import { select, mouse } from 'd3-selection'
+import { select, pointer } from 'd3-selection'
 
 import { zoomToLab } from '../main/zoom'
 import state from '../settings/state'
@@ -82,13 +82,13 @@ export default initialGraph => {
 	that.init = () => {
 		const canvasSel = select('#diagram > canvas')
 		canvasSel
-			.on('mousemove', function () {
-				const screenCoords = mouse(this)
+			.on('mousemove', function (event) {
+				const screenCoords = pointer(event)
 				const dataCoords = state.zoomTransform.invert(screenCoords)
 				canvasSel.style('cursor', getNode(dataCoords) || getSatellite(dataCoords) ? 'pointer' : 'default')
 			})
-			.on('click', function () {
-				const screenCoords = mouse(this)
+			.on('click', function (event) {
+				const screenCoords = pointer(event)
 
 				const dataCoords = state.zoomTransform.invert(screenCoords)
 				const node = getNode(dataCoords)

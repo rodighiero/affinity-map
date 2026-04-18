@@ -1,5 +1,5 @@
 import { zoom, zoomIdentity } from 'd3-zoom'
-import { select, event } from 'd3-selection'
+import { select } from 'd3-selection'
 
 import s from '../settings/config'
 import state from '../settings/state'
@@ -22,7 +22,7 @@ export const zoomInit = map => {
 	state.zoom = zoom()
 		.scaleExtent([s.zoom.min, s.client.isMobile || s.client.isTablet ? 16 / s.screen.density : 16])
 		.on('start', () => map.startNamedAnimation('zoom'))
-		.on('zoom', () => state.zoomTransform = event.transform)
+		.on('zoom', (event) => state.zoomTransform = event.transform)
 		.on('end', () => map.stopNamedAnimation('zoom'))
 
 

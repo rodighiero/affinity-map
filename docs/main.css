@@ -42,6 +42,7 @@
       transform: scale(1.0);
     }
   }
+.noUi-target,.noUi-target *{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-ms-touch-action:none;touch-action:none;-ms-user-select:none;-moz-user-select:none;user-select:none;-moz-box-sizing:border-box;box-sizing:border-box}.noUi-target{position:relative}.noUi-base,.noUi-connects{width:100%;height:100%;position:relative;z-index:1}.noUi-connects{overflow:hidden;z-index:0}.noUi-connect,.noUi-origin{will-change:transform;position:absolute;z-index:1;top:0;right:0;height:100%;width:100%;-ms-transform-origin:0 0;-webkit-transform-origin:0 0;-webkit-transform-style:preserve-3d;transform-origin:0 0;transform-style:flat}.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin{left:0;right:auto}.noUi-vertical .noUi-origin{top:-100%;width:0}.noUi-horizontal .noUi-origin{height:0}.noUi-handle{-webkit-backface-visibility:hidden;backface-visibility:hidden;position:absolute}.noUi-touch-area{height:100%;width:100%}.noUi-state-tap .noUi-connect,.noUi-state-tap .noUi-origin{-webkit-transition:transform .3s;transition:transform .3s}.noUi-state-drag *{cursor:inherit!important}.noUi-horizontal{height:18px}.noUi-horizontal .noUi-handle{width:34px;height:28px;right:-17px;top:-6px}.noUi-vertical{width:18px}.noUi-vertical .noUi-handle{width:28px;height:34px;right:-6px;bottom:-17px}.noUi-txt-dir-rtl.noUi-horizontal .noUi-handle{left:-17px;right:auto}.noUi-target{background:#FAFAFA;border-radius:4px;border:1px solid #D3D3D3;box-shadow:inset 0 1px 1px #F0F0F0,0 3px 6px -5px #BBB}.noUi-connects{border-radius:3px}.noUi-connect{background:#3FB8AF}.noUi-draggable{cursor:ew-resize}.noUi-vertical .noUi-draggable{cursor:ns-resize}.noUi-handle{border:1px solid #D9D9D9;border-radius:3px;background:#FFF;cursor:default;box-shadow:inset 0 0 1px #FFF,inset 0 1px 7px #EBEBEB,0 3px 6px -3px #BBB}.noUi-active{box-shadow:inset 0 0 1px #FFF,inset 0 1px 7px #DDD,0 3px 6px -3px #BBB}.noUi-handle:after,.noUi-handle:before{content:"";display:block;position:absolute;height:14px;width:1px;background:#E8E7E6;left:14px;top:6px}.noUi-handle:after{left:17px}.noUi-vertical .noUi-handle:after,.noUi-vertical .noUi-handle:before{width:14px;height:1px;left:6px;top:14px}.noUi-vertical .noUi-handle:after{top:17px}[disabled] .noUi-connect{background:#B8B8B8}[disabled] .noUi-handle,[disabled].noUi-handle,[disabled].noUi-target{cursor:not-allowed}.noUi-pips,.noUi-pips *{-moz-box-sizing:border-box;box-sizing:border-box}.noUi-pips{position:absolute;color:#999}.noUi-value{position:absolute;white-space:nowrap;text-align:center}.noUi-value-sub{color:#ccc;font-size:10px}.noUi-marker{position:absolute;background:#CCC}.noUi-marker-sub{background:#AAA}.noUi-marker-large{background:#AAA}.noUi-pips-horizontal{padding:10px 0;height:80px;top:100%;left:0;width:100%}.noUi-value-horizontal{-webkit-transform:translate(-50%,50%);transform:translate(-50%,50%)}.noUi-rtl .noUi-value-horizontal{-webkit-transform:translate(50%,50%);transform:translate(50%,50%)}.noUi-marker-horizontal.noUi-marker{margin-left:-1px;width:2px;height:5px}.noUi-marker-horizontal.noUi-marker-sub{height:10px}.noUi-marker-horizontal.noUi-marker-large{height:15px}.noUi-pips-vertical{padding:0 10px;height:100%;top:0;left:100%}.noUi-value-vertical{-webkit-transform:translate(0,-50%);transform:translate(0,-50%);padding-left:25px}.noUi-rtl .noUi-value-vertical{-webkit-transform:translate(0,50%);transform:translate(0,50%)}.noUi-marker-vertical.noUi-marker{width:5px;height:2px;margin-top:-1px}.noUi-marker-vertical.noUi-marker-sub{width:10px}.noUi-marker-vertical.noUi-marker-large{width:15px}.noUi-tooltip{display:block;position:absolute;border:1px solid #D9D9D9;border-radius:3px;background:#fff;color:#000;padding:5px;text-align:center;white-space:nowrap}.noUi-horizontal .noUi-tooltip{-webkit-transform:translate(-50%,0);transform:translate(-50%,0);left:50%;bottom:120%}.noUi-vertical .noUi-tooltip{-webkit-transform:translate(0,-50%);transform:translate(0,-50%);top:50%;right:120%}.noUi-horizontal .noUi-origin>.noUi-tooltip{-webkit-transform:translate(50%,0);transform:translate(50%,0);left:auto;bottom:10px}.noUi-vertical .noUi-origin>.noUi-tooltip{-webkit-transform:translate(0,-18px);transform:translate(0,-18px);top:auto;right:28px}
 .noUi-value-large:last-child {
     display: none;
 }
@@ -102,6 +103,855 @@
 .noUi-marker-large {
     background: #FFF;
     height: 1px !important;
+}
+@charset "UTF-8";
+/* Document
+ * ========================================================================== */
+/**
+ * 1. Add border box sizing in all browsers (opinionated).
+ * 2. Backgrounds do not repeat by default (opinionated).
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  background-repeat: no-repeat;
+  /* 2 */
+}
+
+/**
+ * 1. Add text decoration inheritance in all browsers (opinionated).
+ * 2. Add vertical alignment inheritance in all browsers (opinionated).
+ */
+::before,
+::after {
+  text-decoration: inherit;
+  /* 1 */
+  vertical-align: inherit;
+  /* 2 */
+}
+
+/**
+ * 1. Use the default cursor in all browsers (opinionated).
+ * 2. Change the line height in all browsers (opinionated).
+ * 3. Breaks words to prevent overflow in all browsers (opinionated).
+ * 4. Use a 4-space tab width in all browsers (opinionated).
+ * 5. Remove the grey highlight on links in iOS (opinionated).
+ * 6. Prevent adjustments of font size after orientation changes in iOS.
+ */
+:where(:root) {
+  cursor: default;
+  /* 1 */
+  line-height: 1.5;
+  /* 2 */
+  overflow-wrap: break-word;
+  /* 3 */
+  -moz-tab-size: 4;
+  /* 4 */
+  -o-tab-size: 4;
+     tab-size: 4;
+  /* 4 */
+  -webkit-tap-highlight-color: transparent;
+  /* 5 */
+  -webkit-text-size-adjust: 100%;
+  /* 6 */
+}
+
+/* Sections
+ * ========================================================================== */
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+:where(body) {
+  margin: 0;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Edge, Firefox, and Safari.
+ */
+:where(h1) {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+ * ========================================================================== */
+/**
+ * Remove the margin on nested lists in Chrome, Edge, and Safari.
+ */
+:where(dl, ol, ul) :where(dl, ol, ul) {
+  margin: 0;
+}
+
+/**
+ * 1. Correct the inheritance of border color in Firefox.
+ * 2. Add the correct box sizing in Firefox.
+ */
+:where(hr) {
+  color: inherit;
+  /* 1 */
+  height: 0;
+  /* 2 */
+}
+
+/**
+ * Remove the list style on navigation lists in all browsers (opinionated).
+ */
+:where(nav) :where(ol, ul) {
+  list-style-type: none;
+  padding: 0;
+}
+
+/**
+ * Prevent VoiceOver from ignoring list semantics in Safari (opinionated).
+ */
+:where(nav li)::before {
+  content: "​";
+  float: left;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ * 3. Prevent overflow of the container in all browsers (opinionated).
+ */
+:where(pre) {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+  overflow: auto;
+  /* 3 */
+}
+
+/* Text-level semantics
+ * ========================================================================== */
+/**
+ * Add the correct text decoration in Safari.
+ */
+:where(abbr[title]) {
+  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+:where(b, strong) {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+:where(code, kbd, samp) {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+:where(small) {
+  font-size: 80%;
+}
+
+/* Embedded content
+ * ========================================================================== */
+/*
+ * Change the alignment on media elements in all browsers (opinionated).
+ */
+:where(audio, canvas, iframe, img, svg, video) {
+  vertical-align: middle;
+}
+
+/**
+ * Remove the border on iframes in all browsers (opinionated).
+ */
+:where(iframe) {
+  border-style: none;
+}
+
+/**
+ * Change the fill color to match the text color in all browsers (opinionated).
+ */
+:where(svg:not([fill])) {
+  fill: currentColor;
+}
+
+/* Tabular data
+ * ========================================================================== */
+/**
+ * 1. Collapse border spacing in all browsers (opinionated).
+ * 2. Correct table border color inheritance in all Chrome, Edge, and Safari.
+ * 3. Remove text indentation from table contents in Chrome, Edge, and Safari.
+ */
+:where(table) {
+  border-collapse: collapse;
+  /* 1 */
+  border-color: inherit;
+  /* 2 */
+  text-indent: 0;
+  /* 3 */
+}
+
+/* Forms
+ * ========================================================================== */
+/**
+ * Remove the margin on controls in Safari.
+ */
+:where(button, input, select) {
+  margin: 0;
+}
+
+/**
+ * Correct the inability to style buttons in iOS and Safari.
+ */
+:where(button, [type="button" i], [type="reset" i], [type="submit" i]) {
+  -webkit-appearance: button;
+}
+
+/**
+ * Change the inconsistent appearance in all browsers (opinionated).
+ */
+:where(fieldset) {
+  border: 1px solid #a0a0a0;
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Edge, and Firefox.
+ */
+:where(progress) {
+  vertical-align: baseline;
+}
+
+/**
+ * 1. Remove the margin in Firefox and Safari.
+ * 3. Change the resize direction in all browsers (opinionated).
+ */
+:where(textarea) {
+  margin: 0;
+  /* 1 */
+  resize: vertical;
+  /* 3 */
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome, Edge, and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+:where([type="search" i]) {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Safari.
+ */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * Correct the text style of placeholders in Chrome, Edge, and Safari.
+ */
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+/**
+ * Remove the inner padding in Chrome, Edge, and Safari on macOS.
+ */
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style upload buttons in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/* Interactive
+ * ========================================================================== */
+/*
+ * Add the correct styles in Safari.
+ */
+:where(dialog) {
+  background-color: white;
+  border: solid;
+  color: black;
+  height: -moz-fit-content;
+  height: -webkit-fit-content;
+  height: fit-content;
+  left: 0;
+  margin: auto;
+  padding: 1em;
+  position: absolute;
+  right: 0;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+}
+
+:where(dialog:not([open])) {
+  display: none;
+}
+
+/*
+ * Add the correct display in Safari.
+ */
+:where(details > summary:first-of-type) {
+  display: list-item;
+}
+
+/* Accessibility
+ * ========================================================================== */
+/**
+ * Change the cursor on busy elements in all browsers (opinionated).
+ */
+:where([aria-busy="true" i]) {
+  cursor: progress;
+}
+
+/*
+ * Change the cursor on control elements in all browsers (opinionated).
+ */
+:where([aria-controls]) {
+  cursor: pointer;
+}
+
+/*
+ * Change the cursor on disabled, not-editable, or otherwise
+ * inoperable elements in all browsers (opinionated).
+ */
+:where([aria-disabled="true" i], [disabled]) {
+  cursor: not-allowed;
+}
+
+/*
+ * Change the display on visually hidden accessible elements
+ * in all browsers (opinionated).
+ */
+:where([aria-hidden="false" i][hidden]) {
+  display: initial;
+}
+
+:where([aria-hidden="false" i][hidden]:not(:focus)) {
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+/*! Marx v3.0.9 - The classless CSS reset (perfect for Communists) | MIT License | https://github.com/mblode/marx */
+main,
+header,
+footer,
+article,
+section,
+aside,
+details,
+summary {
+  margin: 0 auto;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+  max-width: 768px;
+  padding: 0 16px 16px;
+}
+
+footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 16px 0;
+  text-align: center;
+}
+footer p {
+  margin-bottom: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+
+@media screen and (max-width: 400px) {
+  article,
+section,
+aside {
+    clear: both;
+    display: block;
+    max-width: 100%;
+  }
+
+  img {
+    margin-right: 16px;
+  }
+}
+embed,
+iframe,
+video {
+  border: 0;
+}
+
+body {
+  color: rgba(0, 0, 0, 0.8);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  font-family: inherit;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 40px;
+  margin: 20px 0 16px;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 20px 0 16px;
+}
+
+h3 {
+  font-size: 28px;
+  margin: 16px 0 4px;
+}
+
+h4 {
+  font-size: 24px;
+  margin: 16px 0 4px;
+}
+
+h5 {
+  font-size: 20px;
+  margin: 16px 0 4px;
+}
+
+h6 {
+  font-size: 16px;
+  margin: 16px 0 4px;
+}
+
+small {
+  color: rgba(0, 0, 0, 0.54);
+  vertical-align: bottom;
+}
+
+pre {
+  background: #f7f7f9;
+  color: rgba(0, 0, 0, 0.8);
+  display: block;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 16px;
+  margin: 16px 0;
+  padding: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+code {
+  color: rgba(0, 0, 0, 0.8);
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 16px;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+a {
+  color: #3b82f6;
+  text-decoration: none;
+  background-color: transparent;
+}
+a:hover, a:focus {
+  color: #0b63f3;
+  text-decoration: underline;
+}
+
+dl {
+  margin-bottom: 16px;
+}
+
+dd {
+  margin-left: 40px;
+}
+
+ul,
+ol {
+  margin-bottom: 8px;
+  padding-left: 40px;
+  vertical-align: baseline;
+}
+
+blockquote {
+  border-left: 2px solid rgba(0, 0, 0, 0.8);
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding-left: 16px;
+}
+
+figcaption {
+  font-family: Georgia, Times, "Times New Roman", serif;
+}
+
+u {
+  text-decoration: underline;
+}
+
+s {
+  text-decoration: line-through;
+}
+
+sup {
+  font-size: 14px;
+  vertical-align: super;
+}
+
+sub {
+  font-size: 14px;
+  vertical-align: sub;
+}
+
+mark {
+  background: #eab308;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=date],
+input[type=month],
+input[type=time],
+input[type=datetime],
+input[type=datetime-local],
+input[type=week],
+input[type=number],
+input[type=search],
+input[type=tel],
+select,
+textarea {
+  background: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.8);
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  padding: 8px 16px;
+  line-height: 1.5;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  word-break: normal;
+}
+
+input[type=color] {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input:not([type]) {
+  -webkit-appearance: none;
+  background: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.8);
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  line-height: 1.5;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-align: left;
+  word-break: normal;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=date]:focus,
+input[type=month]:focus,
+input[type=time]:focus,
+input[type=datetime]:focus,
+input[type=datetime-local]:focus,
+input[type=week]:focus,
+input[type=number]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=color]:focus,
+select:focus,
+textarea:focus {
+  background-color: #fff;
+  border-color: #9dc1fb;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+input:not([type]):focus {
+  background-color: #fff;
+  border-color: #9dc1fb;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+input[type=file]:focus,
+input[type=radio]:focus,
+input[type=checkbox]:focus {
+  outline: 1px thin rgba(0, 0, 0, 0.12);
+}
+
+input[type=text][disabled],
+input[type=password][disabled],
+input[type=email][disabled],
+input[type=url][disabled],
+input[type=date][disabled],
+input[type=month][disabled],
+input[type=time][disabled],
+input[type=datetime][disabled],
+input[type=datetime-local][disabled],
+input[type=week][disabled],
+input[type=number][disabled],
+input[type=search][disabled],
+input[type=tel][disabled],
+input[type=color][disabled],
+select[disabled],
+textarea[disabled] {
+  background-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+input:not([type])[disabled] {
+  background-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  border-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+}
+
+input:focus:invalid,
+textarea:focus:invalid,
+select:focus:invalid {
+  border-color: #f10f36;
+  color: #f43f5e;
+}
+
+input[type=file]:focus:invalid:focus,
+input[type=radio]:focus:invalid:focus,
+input[type=checkbox]:focus:invalid:focus {
+  outline-color: #f43f5e;
+}
+
+select {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  vertical-align: sub;
+}
+
+select:not([size]):not([multiple]) {
+  height: calc(2.25rem + 2px);
+}
+
+select[multiple] {
+  height: auto;
+}
+
+label {
+  display: inline-block;
+  line-height: 2;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 8px 0;
+}
+
+legend {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.8);
+  display: block;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  width: 100%;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+  display: inline;
+}
+
+input[type=submit],
+input[type=reset],
+input[type=button],
+button {
+  background-color: #3b82f6;
+  border: #3b82f6;
+  border-radius: 4px;
+  color: #fff;
+  padding: 8px 16px;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input[type=submit]::-moz-focus-inner,
+input[type=reset]::-moz-focus-inner,
+input[type=button]::-moz-focus-inner,
+button::-moz-focus-inner {
+  padding: 0;
+}
+
+input[type=submit]:hover,
+input[type=reset]:hover,
+input[type=button]:hover,
+button:hover {
+  background-color: #166bf4;
+  border-color: #0b63f3;
+  color: #fff;
+}
+
+input[type=submit]:not(:disabled):active,
+input[type=reset]:not(:disabled):active,
+input[type=button]:not(:disabled):active,
+button:not(:disabled):active {
+  background-color: #0b63f3;
+  border-color: #0b5ee7;
+  color: #fff;
+}
+
+input[type=submit]:focus,
+input[type=reset]:focus,
+input[type=button]:focus,
+button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.5);
+}
+
+input[type=submit]:disabled,
+input[type=reset]:disabled,
+input[type=button]:disabled,
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+table {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 16px;
+}
+
+caption {
+  padding: 8px 0;
+}
+
+thead th {
+  border: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  text-align: left;
+}
+
+tr {
+  margin-bottom: 8px;
+}
+
+th,
+td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 16px;
+  vertical-align: inherit;
+}
+
+tfoot tr {
+  text-align: left;
+}
+
+tfoot td {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 8px;
+  font-style: italic;
+  padding: 16px 4px;
 }
 #spinnerContainer{
     position: absolute;
@@ -455,7 +1305,7 @@ button:disabled {
 	top: 0;
 	right: 0;
 	background-color: transparent;
-	background-image: url(f4956ccd6e3a658c41a3496cbd25a1c4.png);
+	background-image: url(d521e8a7593b4d0d8b8e.png);
 	background-size: 100px;
 }
 
@@ -468,7 +1318,7 @@ button:disabled {
 	top: 190px;
 	left: 10px;
 	background-color: transparent;
-	background-image: url(6ef6b06150bac9fa91988f72f174dacd.svg);
+	background-image: url(ffed53930ea59b390eb8.svg);
 	background-size: 250px;
 	width: 250px;
 	height: 45px;
@@ -523,7 +1373,7 @@ div.loginout {
 	display: block;
 	width: 45px;
 	height: 40px;
-	background-image: url(5b6a13a4c625dcc8e28e94972cab5032.svg);
+	background-image: url(3c1419982965d8154feb.svg);
 	background-size: 36px;
 }
 
@@ -614,7 +1464,7 @@ div.loginout {
 #dcpOpenBtn {
 	right: 4px;
 	position: absolute;
-	background-image: url(70960e49fe8fc9b59e8f84da17d67e09.svg);
+	background-image: url(8daa55ecf31f9409e3eb.svg);
 	top: 4px;
 	height: 35px!important;
 	width: 35px;
@@ -624,7 +1474,7 @@ div.loginout {
 
 #dcpOpenBtn.closed {
 	transition: 0.5s;
-	background-image: url(2ca354ed68f7ac8add8eb104e3421301.svg);
+	background-image: url(a0786021ae7db923754f.svg);
 	top: 3px;
 	visibility: visible;
 }

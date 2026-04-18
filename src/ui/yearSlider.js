@@ -5,7 +5,7 @@
  */
 import { min, max, range } from 'd3-array'
 import noUiSlider from 'nouislider'
-import 'nouislider/distribute/nouislider.min.css'
+import 'nouislider/dist/nouislider.min.css'
 
 import { CE } from '../elements/cachedElements'
 import config from '../settings/config'

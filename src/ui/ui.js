@@ -1,4 +1,4 @@
-import { select, event } from 'd3-selection'
+import { select } from 'd3-selection'
 
 import { init as initData } from '../main/init'
 import Map from '../main/map'
@@ -221,7 +221,7 @@ export default () => {
 		select('#reset').on('click', () => resetFilter(graph))
 		// show all div hidden until ui is intitialized
 		window.addEventListener('resize', onWindowResize)
-		select(window).on('keyup', () => { if (event.keyCode === 9) { select('input[type=text]').node().focus() } })
+		select(window).on('keyup', (event) => { if (event.keyCode === 9) { select('input[type=text]').node().focus() } })
 		select('#spinnerContainer').remove()
 
 		document.getElementById('container').style.cssText = 'display:visible;'
