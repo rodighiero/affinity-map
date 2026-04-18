@@ -18,10 +18,6 @@ button {
 	cursor: pointer;
 }
 
-button:disabled {
-	background: #b1aca9!important;
-	border-color: #b1aca9!important
-}
 
 /******************************************************************************
 	 * Containers		
@@ -106,26 +102,6 @@ button:disabled {
 	white-space: nowrap;
 	z-index: 10;
 }
-
-/******************************************************************************
-     * Access to the private page		
-******************************************************************************/
-
-div.loginout {
-	position: absolute;
-	left: 42.5%;
-	font-size: 20px;
-	top: 10px;
-	border: 0;
-	background-color: transparent;
-}
-
-.choiceIcon {
-	position: relative;
-	height: 12px;
-	top: 2px;
-}
-
 
 /******************************************************************************
      * Fullextent		
@@ -226,4 +202,111 @@ div.loginout {
 .tglBtnContainer>text {
 	font-size: 12px;
 	color: rgba(255,255,255,0.75);
+}
+
+/******************************************************************************
+ * Sidebar (keyword filter)
+******************************************************************************/
+
+#sidebar {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 220px;
+	background: rgba(25, 25, 25, 0.92);
+	transform: translateX(-220px);
+	transition: transform 0.3s ease;
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+}
+
+#sidebar.open {
+	transform: translateX(0);
+}
+
+#sidebar-toggle {
+	position: absolute;
+	right: -28px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 28px;
+	height: 48px;
+	background: rgba(25, 25, 25, 0.92);
+	border: none;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 0 6px 6px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+#sidebar-toggle:hover {
+	color: white;
+}
+
+#sidebar-content {
+	padding: 20px 14px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+#sidebar-content h3 {
+	font-size: 10px;
+	letter-spacing: 2px;
+	color: rgba(255, 255, 255, 0.35);
+	margin: 0 0 14px 0;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+#keyword-filter {
+	width: 100%;
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	color: white;
+	padding: 6px 8px;
+	font-size: 12px;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	outline: none;
+}
+
+#keyword-filter::placeholder {
+	color: rgba(255, 255, 255, 0.25);
+}
+
+#keyword-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	flex: 1;
+}
+
+#keyword-list li {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 3px 0;
+}
+
+#keyword-list label {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.65);
+	cursor: pointer;
+}
+
+#keyword-list input[type="checkbox"] {
+	cursor: pointer;
+	accent-color: #EB5D00;
+	flex-shrink: 0;
 }

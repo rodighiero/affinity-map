@@ -6,7 +6,7 @@ import Map from '../main/map'
 import { zoomInit, zoomToExtent } from '../main/zoom'
 import config from '../settings/config'
 
-import choicesFilterTool from './filter'
+import sidebarFilter from './filter'
 import canvasInteractionTool from './canvasInteractionTool'
 import displayConfig from './displayConfig'
 
@@ -18,25 +18,7 @@ import state from '../settings/state'
  ******************************************************************************/
 export default () => {
 	const that = {
-		cft: undefined,
-	}
-
-	/******************************************************************************
-	 * Apply filter to the network
-	 ******************************************************************************/
-	const filterLabs = (graph, labSet) => {
-		state.epGraph.links = state.epGraph.links.filter(l => {
-			const sourceNode = typeof l.source === 'string' ? graph.nodes.find(o => o.attr.name === l.source) : l.source
-			const targetNode = typeof l.target === 'string' ? graph.nodes.find(o => o.attr.name === l.target) : l.target
-
-			return labSet.has(targetNode.attr.name) && labSet.has(sourceNode.attr.name)
-		})
-		state.epGraph.nodes = state.epGraph.nodes.filter(n => labSet.has(n.attr.name))
-
-		state.enGraph.links = state.epGraph.links.filter(l => l.target.attr.faculty === 'ENAC' && l.source.attr.faculty === 'ENAC')
-		state.enGraph.nodes = state.epGraph.nodes.filter(n => n.attr.faculty === 'ENAC')
-
-		that.map.restart()
+		filter: undefined,
 	}
 
 	/******************************************************************************
@@ -49,7 +31,6 @@ export default () => {
 		} else {
 			graph.nodes.forEach(n => n.visibility = true)
 		}
-
 		that.map.updateImage()
 	}
 
@@ -61,30 +42,7 @@ export default () => {
 		that.map.updateImage()
 	}
 
-	/******************************************************************************
-	 * Finish the UI initialization, once the data are arrived
-	 ******************************************************************************/
-	const resetFilter = () => {
-		state.epGraph.nodes.forEach(n => n.visibility = true)
-		that.map.updateImage()
-		if (that.cft) that.cft.reset()
-	}
-
-	that.reInit = data => {
-		state.initGraphs(data.graph)
-		state.init(data)
-
-		that.map.hardStopAnimation()
-		that.map.init().start()
-
-		if (that.cft) {
-			that.cft.setGraph(data.graph)
-		}
-
-		document.getElementById('container').style.cssText = 'display:visible;'
-	}
-
-	that.init = (data, privateAccess) => {
+	that.init = (data) => {
 
 		initData(data)
 		initKeywords(data.graph.nodes)
@@ -92,27 +50,19 @@ export default () => {
 
 		const { graph } = data
 
-		that.privateAccess = privateAccess
-
-		if (config.visibility.filter && !config.client.isMobile) {
-			that.cft = choicesFilterTool(previewLabSet, filterLabs).init()
-		} else { document.getElementById('input_bar').style = 'display:none' }
-
 		that.map = Map()
 
 		zoomInit(that.map)
-
 		displayConfig(that.map).init()
 
-		if (that.cft) { that.cft.setGraph(graph) }
+		that.filter = sidebarFilter(previewLabSet).init()
+		that.filter.setGraph(graph)
+
 		that.cit = canvasInteractionTool(graph).init()
 
-		// set the reset button onClick callback
 		select('#fullextent').on('click', () => zoomToExtent(3000))
-		select('#reset').on('click', () => resetFilter(graph))
-		// show all div hidden until ui is intitialized
 		window.addEventListener('resize', onWindowResize)
-		select(window).on('keyup', (event) => { if (event.keyCode === 9) { select('input[type=text]').node().focus() } })
+		select(window).on('keyup', (event) => { if (event.keyCode === 9) { document.getElementById('keyword-filter').focus() } })
 		select('#spinnerContainer').remove()
 
 		document.getElementById('container').style.cssText = 'display:visible;'
