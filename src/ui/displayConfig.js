@@ -75,6 +75,7 @@ export default (map) => {
 			const txt = g.append('text')
 				.attr('fill', color())
 				.attr('font-size', 8)
+				.attr('font-weight', 'bold')
 				.attr('letter-spacing', 1)
 				.attr('font-family', 'Arial')
 				.style('pointer-events', 'none')
