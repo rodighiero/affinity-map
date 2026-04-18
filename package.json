@@ -37,7 +37,6 @@
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
     "marx-css": "^4.1.4",
-    "mobile-detect": "^1.4.4",
-    "nouislider": "^15.7.1"
+    "mobile-detect": "^1.4.4"
   }
 }
