@@ -60,7 +60,7 @@ export default () => {
 
 		that.cit = canvasInteractionTool(graph).init()
 
-		select('#fullextent').on('click', () => zoomToExtent(3000))
+		select('#logo-corner').style('cursor', 'pointer').on('click', () => zoomToExtent(3000))
 		window.addEventListener('resize', onWindowResize)
 		select(window).on('keyup', (event) => { if (event.keyCode === 9) { document.getElementById('keyword-filter').focus() } })
 		select('#spinnerContainer').remove()

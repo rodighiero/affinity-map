@@ -192,26 +192,6 @@ button {
 	z-index: 10;
 }
 
-/******************************************************************************
-     * Fullextent		
-******************************************************************************/
-
-#fullextent {
-	position: absolute;
-	cursor: pointer;
-	top: 7px;
-	left: 7px;
-	z-index: 10;
-}
-
-#fullextent a {
-	display: block;
-	width: 45px;
-	height: 40px;
-	background-image: url(5b6a13a4c625dcc8e28e.svg);
-	background-size: 36px;
-}
-
 
 /******************************************************************************
      * fps counter
