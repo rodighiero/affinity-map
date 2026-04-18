@@ -9,7 +9,7 @@ export default {
 		gap: 2,
 		min: .1,
 		max: 8,
-		radius: 55,
+		radius: 70,
 		scholarThickness: 4,
 	},
 
