@@ -10,7 +10,7 @@ const arcD = r => `M ${W - r},${W} A ${r},${r} 0 0,1 ${W},${W - r}`
 
 // Satellite arcs + gaps for text between them; keyword arc + text outside it
 const ARC_RADII  = [35,  70,  105, 140]
-const TEXT_RADII = [52,  87,  122, 158]
+const TEXT_RADII = [45,  80,  115, 151]
 
 export default (map) => {
 	const that = {}
