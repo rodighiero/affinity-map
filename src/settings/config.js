@@ -6,11 +6,11 @@ export default {
 			max: 1.5,
 		},
 		distance: 130,
-		gap: 1,
+		gap: .8,
 		min: .2,
-		max: 4,
+		max: 2.5,
 		radius: 55,
-		scholarThickness: 3,
+		scholarThickness: 2,
 	},
 
 	// Satellite configuration
