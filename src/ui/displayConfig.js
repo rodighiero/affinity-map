@@ -10,7 +10,9 @@ export default (map) => {
 
 	that.init = () => {
 		const affinities = a.orderedAcronyms().map(d => ({
+			acronym: d,
 			name: capitalize(a.name(d)),
+			isSatellite: a.isSatellite(d),
 			clbk(checked) {
 				state.activation[d] = checked
 				map.restart()
@@ -23,7 +25,10 @@ export default (map) => {
 		root.append('h3').text('Arrange by Affinities')
 
 		const items = root.selectAll('div.tglBtnContainer').data(affinities)
-		const item = items.enter().append('div').attr('class', 'tglBtnContainer')
+		const item = items.enter().append('div')
+			.attr('class', d => d.isSatellite ? 'tglBtnContainer' : 'tglBtnContainer kw-affinity')
+
+		item.filter(d => !d.isSatellite).append('div').attr('class', 'kw-divider')
 
 		const inputs = item.append('input')
 			.attr('type', 'checkbox')
@@ -38,7 +43,7 @@ export default (map) => {
 		})
 
 		item.append('label').attr('class', 'tgl-btn').attr('for', d => `${d.name}-btn`)
-		item.append('text').text(d => d.name)
+		item.append('text').text(d => d.isSatellite ? d.name : `# ${d.name}`)
 
 		return that
 	}

@@ -30,6 +30,9 @@ export default {
 	defaultStatus(i) {
 		return state.keyDescription[i].default
 	},
+	isSatellite(i) {
+		return state.keyDescription[i].satellite !== false
+	},
 
 	visibleAcronyms(){
 		return state.acronyms
