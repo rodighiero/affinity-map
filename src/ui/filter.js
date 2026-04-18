@@ -3,7 +3,6 @@ import 'choices.js/public/assets/styles/choices.min.css'
 import 'choices.js/public/assets/styles/base.min.css'
 
 import { zoomToLab } from '../main/zoom'
-import { foldAccents } from '../tools/generalTools'
 
 export default (previewLabSet, filterLabs) => {
 	const that = { highlighted: [], items: [], previousFilters: [] }
@@ -69,26 +68,6 @@ export default (previewLabSet, filterLabs) => {
 				choices: v.choices.filter(o => o.customProperties.labs.some(l => set.has(l))),
 			}))
 			that.multipleDefault.setChoices(that.choices, 'value', 'label', true)
-		}
-	}
-
-	const matcherRe = /([a-zA-Z]+):(.*)/
-
-	const searchCustomFun = (value, searchFields) => {
-		const foldedValue = foldAccents(value)
-		const match = matcherRe.exec(foldedValue)
-		const cmpFieldsAndValue = (o, v = foldedValue) =>
-			searchFields.some(f => foldAccents(o[f] || '').toLowerCase().indexOf(v.toLowerCase()) !== -1)
-			|| (o.customProperties.acronym ? foldAccents(o.customProperties.acronym).toLowerCase().indexOf(v.toLowerCase()) !== -1 : false)
-
-		return o => {
-			if (match) {
-				const cat = match[1]
-				if (Object.keys(cats).indexOf(cat) !== -1) {
-					return cats[cat] === o.customProperties.cat && cmpFieldsAndValue(o, match[2])
-				}
-			}
-			return cmpFieldsAndValue(o)
 		}
 	}
 
@@ -192,12 +171,13 @@ export default (previewLabSet, filterLabs) => {
 	}
 
 	const attachEventListeners = () => {
-		that.multipleDefault.passedElement.addEventListener('highlightItem', onHighlightItem, false)
-		that.multipleDefault.passedElement.addEventListener('unhighlightItem', onUnhighlightItem, false)
-		that.multipleDefault.passedElement.addEventListener('highlightChoice', onHighlightChoice, false)
-		that.multipleDefault.passedElement.addEventListener('addItem', onAddItem, false)
-		that.multipleDefault.passedElement.addEventListener('removeItem', onRemoveItem, false)
-		that.multipleDefault.passedElement.addEventListener('hideDropdown', onHideDropdown, false)
+		const el = that.multipleDefault.passedElement.element
+		el.addEventListener('highlightItem', onHighlightItem, false)
+		el.addEventListener('unhighlightItem', onUnhighlightItem, false)
+		el.addEventListener('highlightChoice', onHighlightChoice, false)
+		el.addEventListener('addItem', onAddItem, false)
+		el.addEventListener('removeItem', onRemoveItem, false)
+		el.addEventListener('hideDropdown', onHideDropdown, false)
 		document.getElementById('validate').addEventListener('click', onValidate, false)
 	}
 
@@ -208,9 +188,7 @@ export default (previewLabSet, filterLabs) => {
 				placeholder: true,
 				placeholderValue: 'Search labs or filter by institute…',
 				removeItemButton: true,
-				searchCustomFun,
 				callbackOnCreateTemplates,
-				focusDropdownAfterItemSelect: false,
 				searchResultLimit: 1000,
 				shouldSort: false,
 			})
