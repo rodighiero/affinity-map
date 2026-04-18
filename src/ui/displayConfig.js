@@ -8,38 +8,12 @@ import { select } from 'd3-selection'
 
 import a from '../tools/affinities'
 import state from '../settings/state'
-import config from '../settings/config'
 import { capitalize } from '../tools/generalTools'
-import { CE } from '../elements/cachedElements'
-
-
-const visibilityEntry = (fieldName, privateAccess, name = fieldName, requireCacheFlush) => ({
-	name: capitalize(name),
-	clbk(checked, map) {
-		config.visibility[fieldName] = checked
-
-		if (requireCacheFlush) {
-			CE.flushNodes()
-		}
-
-		map.updateImage()
-	},
-	dft: (privateAccess || config.availableForPublic[fieldName]) && config.visibility[fieldName],
-	disabled: !privateAccess && !config.availableForPublic[fieldName],
-})
 
 
 const configCats = [
 	{
 		name: 'Arrange by Affinities',
-		children: undefined,
-	},
-	{
-		name: 'Network Display',
-		children: undefined,
-	},
-	{
-		name: 'Labs Display',
 		children: undefined,
 	},
 ]
@@ -65,30 +39,6 @@ export default (map, privateAccess) => {
 		}))
 	}
 
-	const setNetworkCat = privateAccess => {
-		configCats[1]//.find(o => o.name === 'Network Display')
-			.children =
-			[['satellites'], ['keywords'], ['links', 'Links']]
-				.map(d => visibilityEntry(d[0], privateAccess, d[1], d[2]))
-		if (privateAccess) {
-			configCats[1].children.push({
-				name: 'ENAC+EPFL',
-				clbk(checked) {
-					state.enacOnly = !checked
-					map.restart()
-				},
-				dft: !state.enacOnly,
-				disabled: false,
-			})
-		}
-	}
-
-	const setNodeCat = privateAccess => {
-		configCats[2]
-			.children =
-			[['chords', 'Diagram'], ['individuals'], ['labNames', 'Name'], ['acronym', 'Acronym'], ['headNames', 'Head']]
-				.map(d => visibilityEntry(d[0], privateAccess, d[1], true))
-	}
 
 	that.closePanel = () => {
 		that.status = false
@@ -101,11 +51,6 @@ export default (map, privateAccess) => {
 	that.init = () => {
 		// use affinities from data to populate Affinites category
 		setAffinityCat(privateAccess)
-
-		if (!config.client.isMobile) {
-			setNetworkCat(privateAccess)
-			setNodeCat(privateAccess)
-		}
 
 		document.getElementById(that.openButtonId).addEventListener('click', () => {
 			that.status = !that.status
