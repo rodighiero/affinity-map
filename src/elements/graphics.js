@@ -163,11 +163,6 @@ export const drawNode = (node, context, labNameScale) => {
 
 
 	// Quantitative rings
-
-	// console.log(a.visibleAcronyms())
-	// console.log(node.metrics)
-
-
 	const total = a.satelliteAcronyms().reduce((total, key) => total + node.metrics.values[key], 0)
 	_s.domain([0, total])
 

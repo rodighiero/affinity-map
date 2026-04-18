@@ -11,8 +11,10 @@ state.debug = new URL(window.location.href).searchParams.get('debug') !== null
 
 export const init = data => {
 
-	window.state = state
-	window.config = config
+	if (state.debug) {
+		window.state = state
+		window.config = config
+	}
 
 	state.init(data)
 	affinities.init(data.affinities)

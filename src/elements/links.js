@@ -5,11 +5,11 @@ import { drawLinks } from './graphics'
 import a from '../tools/affinities'
 
 
-const tickness = 5
+const thickness = 5
 
 export default (links, ctx = state.context) => {
 
-	const _s = scaleLinear().domain([0, state.linksMax]).range([0, tickness]) // Linear
+	const _s = scaleLinear().domain([0, state.linksMax]).range([0, thickness]) // Linear
 	const affinities = a.visibleAcronyms()
 
 	const linksToDraw = links.reduce((object, link) => {

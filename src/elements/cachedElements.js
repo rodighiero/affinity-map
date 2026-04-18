@@ -147,8 +147,7 @@ const cachedElements = () => {
 		that.nodeCache.setCompanionCaches([that.satCache])
 		that.satCache.setCompanionCaches([that.nodeCache])
 
-		window.ec = that.nodeCache.emptyCache
-
+		if (state.debug) window.ec = that.nodeCache.emptyCache
 	}
 
 
@@ -217,5 +216,4 @@ export const drawNodes = CE.drawNodes
 export const drawSatellites = CE.drawSatellites
 export const flushNodes = CE.flushNodes
 
-// TODO: remove that
-window.CE = CE
+if (state.debug) window.CE = CE

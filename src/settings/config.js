@@ -1,5 +1,4 @@
 export default {
-	years:[2017],
 	// Node configuration
 	node: {
 		arc: {
