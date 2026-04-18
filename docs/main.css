@@ -149,7 +149,7 @@ button {
 #legenda {
 	width: 180px;
 	height: 180px;
-	top: 0;
+	bottom: 0;
 	right: 0;
 }
 

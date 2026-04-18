@@ -5,8 +5,8 @@ import state from '../settings/state'
 import { CE } from '../elements/cachedElements'
 
 const W = 180
-// Arc centered at top-right corner of SVG
-const arcD = r => `M ${W - r},0 A ${r},${r} 0 0,1 ${W},${r}`
+// Arc centered at bottom-right corner of SVG
+const arcD = r => `M ${W - r},${W} A ${r},${r} 0 0,1 ${W},${W - r}`
 
 // Satellite arcs + gaps for text between them; keyword arc + text outside it
 const ARC_RADII  = [35,  70,  105, 140]
