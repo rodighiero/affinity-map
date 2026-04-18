@@ -6,7 +6,7 @@ import Map from '../main/map'
 import { zoomInit, zoomToExtent } from '../main/zoom'
 import config from '../settings/config'
 
-// import choicesFilterTool from './filter'
+import choicesFilterTool from './filter'
 import canvasInteractionTool from './canvasInteractionTool'
 import displayConfig from './displayConfig'
 import yearSlider from './yearSlider'
@@ -180,9 +180,8 @@ export default () => {
 		that.map.hardStopAnimation()
 		that.map.init().start()
 
-		if (that.cft) { 
-			that.cft.reinit(that.privateAccess)
-			that.cft.setGraph(data.graph) 
+		if (that.cft) {
+			that.cft.setGraph(data.graph)
 		}
 
 		document.getElementById('container').style.cssText = 'display:visible;'
@@ -201,7 +200,7 @@ export default () => {
 		that.privateAccess = privateAccess
 
 		if (config.visibility.filter && !config.client.isMobile) {
-			// that.cft = choicesFilterTool(previewLabSet, filterLabs).init(privateAccess)
+			that.cft = choicesFilterTool(previewLabSet, filterLabs).init()
 		} else { document.getElementById('input_bar').style = 'display:none' }
 
 		// yearSlider(data.description.availableYears).init(that)
