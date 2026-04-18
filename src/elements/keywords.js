@@ -52,7 +52,7 @@ const sharedKeywords = (nameA, nameB) => {
 export default (links, isAlmostConverged, clbk) => {
 	const ready = []
 
-	state.pairs.toArray().forEach(pair => {
+	state.pairs.forEach(pair => {
 		const n1 = pair[0]
 		const n2 = pair[1]
 

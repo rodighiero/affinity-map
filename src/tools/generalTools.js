@@ -1,4 +1,3 @@
-import { Combination } from 'js-combinatorics'
 import state from '../settings/state'
 
 /* eslint no-dupe-keys: 0 */
@@ -43,7 +42,11 @@ export const foldAccents = s => {
 export const capitalize = s => s.slice(0, 1).toUpperCase() + s.slice(1)
 
 export const initPairs = nodes => {
-	state.pairs = nodes.length > 1 ? new Combination(nodes, 2) : []
+	const pairs = []
+	for (let i = 0; i < nodes.length - 1; i++)
+		for (let j = i + 1; j < nodes.length; j++)
+			pairs.push([nodes[i], nodes[j]])
+	state.pairs = pairs
 }
 
 export const middleSpace = string => {
