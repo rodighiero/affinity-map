@@ -153,7 +153,7 @@ export default () => {
 		checkboxes(that.map)
 		zoomInit(that.map)
 
-		const dp = displayConfig(that.map, privateAccess).init()
+		const dp = displayConfig(that.map).init()
 		modalClick(dp)
 
 		if (that.cft) { that.cft.setGraph(graph) }

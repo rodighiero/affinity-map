@@ -42,9 +42,9 @@ import computeKeywords from '../elements/keywords'
 			state.context.clearRect(-state.zoomTransform.x * k, -state.zoomTransform.y * k, config.screen.width * k, config.screen.height * k)
 
 			// Drawing
-			if (config.visibility.links) drawLinks(graph.links)
-			if (config.visibility.nodes) drawNodes(graph.nodes, forceScale)
-			if (config.visibility.satellites) drawSatellites(graph.links, forceScale)
+			drawLinks(graph.links)
+			drawNodes(graph.nodes, forceScale)
+			drawSatellites(graph.links, forceScale)
 			if (config.visibility.keywords) computeKeywords(graph.links, _isConverged, () => { drawImage() })
 
 			// if (meter) meter.tick()

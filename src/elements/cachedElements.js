@@ -99,7 +99,7 @@ const satRendering = (cache, canvasSize, source, target, cachedK, link, populate
 
 
 	const shoudShowOrbit = isNodeShown(source, config.node.radius + config.node.max + s.distance)
-	if (!populateOnly && shoudShowOrbit && config.visibility.orbits) {
+	if (!populateOnly && shoudShowOrbit) {
 		state.context.setTransform((k * density) / cachedK, 0, 0, (k * density) / cachedK, x * density, y * density)
 		drawOrbit(s.distance, source.x, source.y, state.context)
 	}

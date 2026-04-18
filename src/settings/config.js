@@ -31,19 +31,10 @@ export default {
 		density: 1,
 	},
 
-	// Graphical elements visibility
+	// Feature flags
 	visibility: {
-		acronym: true,
-		chords: true,
 		filter: true,
-		individuals: true,
 		keywords: true,
-		links: true,
-		nodes: true,
-		satellites: true,
-		headNames: true,
-		labNames: true,
-		orbits: true,
 	},
 
 	// Zoom settings
