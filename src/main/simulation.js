@@ -7,8 +7,6 @@ import state from '../settings/state'
 import { zoomToExtent } from './zoom'
 import { initPairs } from '../tools/generalTools'
 
-import spinner from '../ui/spinner'
-
 
 const Simulation = map => {
 
@@ -51,8 +49,7 @@ const Simulation = map => {
 		const a = 1. / (graph.links.length + 0.1) + 1.3
 
 		that.simulation.iTicks = 0
-		spinner.start('network')
-		that.simulation
+				that.simulation
 			.nodes(graph.nodes)
 			.alpha(a).restart()
 
@@ -65,8 +62,7 @@ const Simulation = map => {
 	//
 
 	that.start = graph => {
-		spinner.start('network')
-		state.linksMax = setLinksMax(graph.links)
+				state.linksMax = setLinksMax(graph.links)
 		that.scale.domain([0, state.linksMax])
 		initPairs(graph.nodes)
 
@@ -99,7 +95,6 @@ const Simulation = map => {
 					zoomToExtent(3000)
 
 					state.zoom.on('end', () => {
-						spinner.stop('network')
 						map.stopNamedAnimation('zoom')
 
 						state.zoom.on('end', () => {

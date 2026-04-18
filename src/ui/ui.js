@@ -10,7 +10,6 @@ import choicesFilterTool from './filter'
 import canvasInteractionTool from './canvasInteractionTool'
 import displayConfig from './displayConfig'
 
-import a from '../tools/affinities'
 import state from '../settings/state'
 
 
@@ -20,35 +19,6 @@ import state from '../settings/state'
 export default () => {
 	const that = {
 		cft: undefined,
-	}
-
-	/******************************************************************************
-	 * Construct the checkboxes to enable/disable the affinities in the map.
-	 ******************************************************************************/
-	const checkboxes = map => {
-		let sel = select('div#toggle-btn').selectAll('label').data(a.orderedAcronyms())
-
-		const newLabel = sel.enter().append('div')
-
-		const inputs = newLabel.append('input')
-			.attr('type', 'checkbox')
-			.attr('class', 'tgl tgl-ios')
-			.attr('id', d => a.name(d) + '-btn')
-			.property('checked', d => a.defaultStatus(d))
-
-		newLabel.append('label')
-			.attr('class', 'tgl-btn')
-			.attr('for', d => a.name(d) + '-btn')
-
-		newLabel.append('text')
-			.text(d => ' ' + a.name(d).slice(0, 1).toUpperCase() + a.name(d).slice(1))
-
-		inputs.on('change', function (event, d) {
-			const inputValue = select(this).property('checked')
-			state.activation[d] = inputValue
-			map.restart()
-		})
-
 	}
 
 	/******************************************************************************
@@ -92,11 +62,6 @@ export default () => {
 	}
 
 	/******************************************************************************
-	 * Modal button for credits
-	 ******************************************************************************/
-
-
-	/******************************************************************************
 	 * Finish the UI initialization, once the data are arrived
 	 ******************************************************************************/
 	const resetFilter = () => {
@@ -135,7 +100,6 @@ export default () => {
 
 		that.map = Map()
 
-		checkboxes(that.map)
 		zoomInit(that.map)
 
 		displayConfig(that.map).init()

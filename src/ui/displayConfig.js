@@ -5,22 +5,11 @@ import state from '../settings/state'
 import { capitalize } from '../tools/generalTools'
 import { CE } from '../elements/cachedElements'
 
-const configCats = [
-	{
-		name: 'Arrange by Affinities',
-		children: undefined,
-	},
-]
-
 export default (map) => {
-	const that = {
-		panelId: 'displayConfigPanel',
-		openButtonId: 'dcpOpenBtn',
-		status: false,
-	}
+	const that = {}
 
-	const setAffinityCat = () => {
-		configCats[0].children = a.orderedAcronyms().map(d => ({
+	that.init = () => {
+		const affinities = a.orderedAcronyms().map(d => ({
 			name: capitalize(a.name(d)),
 			clbk(checked) {
 				state.activation[d] = checked
@@ -29,53 +18,27 @@ export default (map) => {
 			},
 			dft: a.defaultStatus(d),
 		}))
-	}
 
-	that.closePanel = () => {
-		that.status = false
-		document.getElementById(that.panelId).classList.add('closed')
-		document.getElementById(that.openButtonId).classList.add('closed')
-		return that
-	}
+		const root = select('#affinity-controls')
+		root.append('h3').text('Arrange by Affinities')
 
-	that.init = () => {
-		setAffinityCat()
+		const items = root.selectAll('div.tglBtnContainer').data(affinities)
+		const item = items.enter().append('div').attr('class', 'tglBtnContainer')
 
-		document.getElementById(that.openButtonId).addEventListener('click', () => {
-			that.status = !that.status
-			if (!that.status) {
-				document.getElementById(that.panelId).classList.add('closed')
-				document.getElementById(that.openButtonId).classList.add('closed')
-			} else {
-				document.getElementById(that.panelId).classList.remove('closed')
-				document.getElementById(that.openButtonId).classList.remove('closed')
-			}
+		const inputs = item.append('input')
+			.attr('type', 'checkbox')
+			.attr('class', 'tgl tgl-ios')
+			.attr('id', d => `${d.name}-btn`)
+			.property('checked', d => d.dft)
+
+		inputs.each(function(d) {
+			select(this).on('change', () => {
+				d.clbk(select(this).property('checked'))
+			})
 		})
 
-		const divsSel = select(`#${that.panelId} #controls`).selectAll('div.contained').data(configCats)
-		const divs = divsSel.enter().append('div').merge(divsSel)
-
-		divs.selectAll('h3').data(d => [d]).enter().append('h3').text(d => d.name)
-
-		const intDivsSel = divs.selectAll('div').data(d => d.children)
-		const intDivs = intDivsSel.enter().append('div').attr('class', 'tglBtnContainer').merge(intDivsSel)
-
-		const inputs = intDivs.selectAll('input').data(d => [d]).enter()
-			.append('input').attr('type', 'checkbox').attr('class', 'tgl tgl-ios').attr('id', d => `${d.name}-btn`)
-
-		inputs
-			.property('checked', d => d.dft)
-			.each(function (d) {
-				select(this).on('change', () => {
-					d.clbk(select(this).property('checked'), map)
-				})
-			})
-
-		intDivs.selectAll('label').data(d => [d]).enter()
-			.append('label').attr('class', 'tgl-btn').attr('for', d => `${d.name}-btn`)
-
-		intDivs.selectAll('text').data(d => [d]).enter()
-			.append('text').text(d => d.name)
+		item.append('label').attr('class', 'tgl-btn').attr('for', d => `${d.name}-btn`)
+		item.append('text').text(d => d.name)
 
 		return that
 	}

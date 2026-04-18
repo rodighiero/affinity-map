@@ -3,7 +3,6 @@ import { staticColor } from '../settings/colors'
 import { drawKeywords } from './graphics'
 import aff from '../tools/affinities'
 
-import spinner from '../ui/spinner'
 import config from '../settings/config'
 
 // check effective and potential keywords
