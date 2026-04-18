@@ -1,7 +1,5 @@
 import { scaleLinear } from 'd3-scale'
 import { range } from 'd3-array'
-import MobileDetect from 'mobile-detect'
-
 import config from '../settings/config'
 import state from '../settings/state'
 import lab from '../elements/chord'
@@ -79,11 +77,9 @@ export const init = data => {
 			}, 0)
 	})
 
-	const md = new MobileDetect(window.navigator.userAgent)
 	config.client = {
-		isMobile: md.mobile() !== null,
-		isTablet: md.tablet() !== null,
-		md,
+		isMobile: /Mobi/i.test(navigator.userAgent),
+		isTablet: /Tablet|iPad/i.test(navigator.userAgent),
 	}
 
 	initCaches()
