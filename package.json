@@ -1,6 +1,6 @@
 {
   "name": "affinity-map",
-  "version": "0.0.2",
+  "version": "0.9.3",
   "private": true,
   "description": "Open source code of the Affinity Map",
   "scripts": {
