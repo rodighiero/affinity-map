@@ -6,7 +6,7 @@ import state from '../settings/state'
 
 import { drawSatellites, drawNodes } from '../elements/cachedElements'
 import drawLinks from '../elements/links'
-// import computeKeywords from '../elements/keywords'
+import computeKeywords from '../elements/keywords'
 
 /**
  * A map is responsible to draw and maintain the simulation on the canvas.
@@ -45,7 +45,7 @@ import drawLinks from '../elements/links'
 			if (config.visibility.links) drawLinks(graph.links)
 			if (config.visibility.nodes) drawNodes(graph.nodes, forceScale)
 			if (config.visibility.satellites) drawSatellites(graph.links, forceScale)
-			// if (config.visibility.keywords) computeKeywords(graph.links, _isConverged, () => { drawImage() })
+			if (config.visibility.keywords) computeKeywords(graph.links, _isConverged, () => { drawImage() })
 
 			// if (meter) meter.tick()
 

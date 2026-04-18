@@ -34,85 +34,44 @@ const hashCode = str => {
 	return hash
 }
 
-const keywordCaches = new Map()
+const labKeywords = new Map()
 
-const keywordRequest = (pairs, clbk) => {
-	const requestPairs = pairs.map(v => {
-		// mark element in cache as INPROGRESS
-		keywordCaches.set(v.key, {
-			...v,
-			status: 'INPROGRESS',
-		})
-
-		return { labs: v.labs, key: v.key }
+export const initKeywords = (nodes) => {
+	nodes.forEach(node => {
+		const keywords = node.attr.keywords || []
+		labKeywords.set(node.attr.name, keywords)
 	})
-
-	const allStrings = requestPairs.reduce((o, v) => o + v.key, '')
-	const allStringHashes = hashCode(allStrings)
-
-	spinner.start('keywords')
-	// fetch(`/api/public/keywords?years=${config.years}&hash=${allStringHashes}`, {
-	// 	credentials: 'include',
-	// 	method: 'POST',
-	// 	headers: {
-	// 		'Accept': 'application/json',
-	// 		'Content-Type': 'application/json',
-	// 	},
-	// 	body: JSON.stringify(requestPairs),
-	// })
-	// 	.then(d => d.json())
-	// 	.then(({ result }) => {
-	// 		result.forEach(v => {
-	// 			const cacheElement = keywordCaches.get(v.key)
-	// 			cacheElement.status = 'DONE'
-	// 			cacheElement.keywords = v.keywords.map(keyword => keyword.kw)
-	// 		})
-	// 		spinner.stop('keywords')
-	// 		clbk()
-	// 	})
 }
 
-// TODO : remove that if possible 
-window.kc = keywordCaches
+const sharedKeywords = (nameA, nameB) => {
+	const kwA = labKeywords.get(nameA) || []
+	const kwB = new Set(labKeywords.get(nameB) || [])
+	return kwA.filter(kw => kwB.has(kw))
+}
 
 export default (links, isAlmostConverged, clbk) => {
-	const labCouples = state.pairs.toArray().reduce((o, pair) => {
-		const n1 = pair[0].attr.name < pair[1].attr.name ? pair[0] : pair[1]
-		const n2 = pair[0].attr.name >= pair[1].attr.name ? pair[0] : pair[1]
+	const ready = []
 
-		const a = Math.abs(n1.x - n2.x)
-		const b = Math.abs(n1.y - n2.y)
-		const distance = Math.pow(a, 2) + Math.pow(b, 2)
+	state.pairs.toArray().forEach(pair => {
+		const n1 = pair[0]
+		const n2 = pair[1]
 
-		if (d_min < distance && distance < d_max) {
-			const key = `${n1.attr.name}-${n2.attr.name}-${config.years}`
-			const cachedContent = keywordCaches.get(key)
-			if (!cachedContent && isAlmostConverged) {
-				o.request.push({
-					labs: [n1.attr.name, n2.attr.name],
-					key: key,
+		const dx = Math.abs(n1.x - n2.x)
+		const dy = Math.abs(n1.y - n2.y)
+		const distSq = dx * dx + dy * dy
+
+		if (distSq < d_max) {
+			const shared = sharedKeywords(n1.attr.name, n2.attr.name)
+			if (shared.length > 0) {
+				ready.push({
+					keywords: shared.slice(0, 5),
 					color: setColor(n1.attr.name, n2.attr.name, links),
+					x: Math.min(n1.x, n2.x) + dx / 2,
+					y: Math.min(n1.y, n2.y) + dy / 2,
 				})
-			} else {
-				if (cachedContent && cachedContent.status === 'DONE') {
-					o.ready.push({
-						keywords: cachedContent.keywords.filter((v,i,a)=>a.indexOf(v)===i),
-						color: cachedContent.color,
-						x: (n1.x < n2.x ? n1.x : n2.x) + a / 2,
-						y: (n1.y < n2.y ? n1.y : n2.y) + b / 2,
-					})
-				}
 			}
 		}
+	})
 
-		return o
-	}, { ready: [], request: [] })
-
-	if (labCouples.request.length > 0) {
-		keywordRequest(labCouples.request, clbk)
-	}
-
-	if (labCouples.ready.length > 0) {
-		drawKeywords(labCouples.ready)
-	}
+	if (ready.length > 0) drawKeywords(ready)
 }

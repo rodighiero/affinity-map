@@ -34,6 +34,12 @@ export default {
 	visibleAcronyms(){
 		return state.acronyms
 	},
+	satelliteAcronyms(){
+		return state.affinities.filter(a => a.satellite !== false).map(a => a.acronym)
+	},
+	reverseSatelliteAcronyms(){
+		return state.affinities.filter(a => a.satellite !== false).map(a => a.acronym).reverse()
+	},
 	reverseVisibleAcronyms(){
 		if( state.rvisibleAffs ){
 			return state.rvisibleAffs

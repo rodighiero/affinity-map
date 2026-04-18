@@ -75,7 +75,7 @@ const maxKeywords = 10
 export const drawKeywords = pairs => {
 	pairs.forEach(pair => {
 		state.context.beginPath()
-		state.context.font = 'normal 500 3pt Arial'
+		state.context.font = 'normal 500 8px Arial'
 		state.context.textAlign = 'center'
 		state.context.fillStyle = pair.color
 		state.context.fill()
@@ -167,11 +167,11 @@ export const drawNode = (node, context, labNameScale) => {
 	// console.log(node.metrics)
 
 
-	const total = a.visibleAcronyms().reduce((total, key) => total + node.metrics.values[key], 0)
+	const total = a.satelliteAcronyms().reduce((total, key) => total + node.metrics.values[key], 0)
 	_s.domain([0, total])
 
 
-	a.visibleAcronyms().forEach(affinity => {
+	a.satelliteAcronyms().forEach(affinity => {
 		const _w = _s(node.metrics.values[affinity])
 		_r -= config.node.gap + _w
 		drawOuterCircle(_r + _w / 2, _w, unitColor(node.attr.institute, affinity), context)
@@ -205,7 +205,7 @@ export const drawNode = (node, context, labNameScale) => {
 		drawOuterCircle(_r + config.node.arc.max / 2, config.node.arc.max, staticColor('lighterBackground'), context)
 	}
 	const scaleAff = scaleLinear().range([0, config.node.arc.max])
-	a.visibleAcronyms().forEach(aff => {
+	a.satelliteAcronyms().forEach(aff => {
 		const hasAff = individual => node.network.nodes[individual.index].metrics.values[aff] > 0
 		const maxAff = max(node.network.nodes, node => node.metrics.values[aff])
 		scaleAff.domain([0, maxAff])
@@ -279,7 +279,7 @@ export const drawSatellite = (satellite, link, ctx, satScale, nameScale) => {
 		ctx.scale(1 / nameScale, 1 / nameScale)
 
 	// Drawings halos
-	a.reverseVisibleAcronyms().reduce((_r, aff) => {
+	a.reverseSatelliteAcronyms().reduce((_r, aff) => {
 		if (!values[aff]) {
 			_r += satConf.width.gap + satConf.width.empty
 			drawOuterCircle(_r - satConf.width.empty * .5, satConf.width.empty, staticColor('placeholder'), ctx)

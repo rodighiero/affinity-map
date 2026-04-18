@@ -37,7 +37,7 @@ export default {
 		chords: true,
 		filter: true,
 		individuals: true,
-		keywords: false,
+		keywords: true,
 		links: true,
 		nodes: true,
 		satellites: true,

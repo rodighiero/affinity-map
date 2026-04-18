@@ -160,7 +160,7 @@ const cachedElements = () => {
 
 		const counter = links.reduce((o, link) => {
 			if (typeof link.source === 'string' || typeof link.target === 'string') { return o }
-			if (!aff.visibleAcronyms().some(aff => link.metrics.values[aff])) { return o }
+			if (!aff.satelliteAcronyms().some(aff => link.metrics.values[aff])) { return o }
 			return o + satRendering(that.satCache, that.satCanvasSize, link.source, link.target, cachedK, link, populateOnly, nodes, true) +
 				satRendering(that.satCache, that.satCanvasSize, link.target, link.source, cachedK, link, populateOnly, nodes, false)
 

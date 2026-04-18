@@ -1,6 +1,7 @@
 import { select } from 'd3-selection'
 
 import { init as initData } from '../main/init'
+import { initKeywords } from '../elements/keywords'
 import Map from '../main/map'
 import { zoomInit, zoomToExtent } from '../main/zoom'
 import config from '../settings/config'
@@ -192,7 +193,7 @@ export default () => {
 		console.log(privateAccess)
 
 		initData(data)
-		
+		initKeywords(data.graph.nodes)
 		state.initGraphs(data.graph)
 
 		const { graph } = data

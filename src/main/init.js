@@ -55,7 +55,7 @@ export const init = data => {
 
 	// Set link max
 	const max = data.graph.links.reduce((o, link) => {
-		const sum = affinities.visibleAcronyms().reduce((o, v) => o + link.metrics.values[v], 0)
+		const sum = affinities.satelliteAcronyms().reduce((o, v) => o + link.metrics.values[v], 0)
 		return o > sum ? o : sum
 	}, 0)
 
@@ -74,7 +74,7 @@ export const init = data => {
 	data.graph.links.forEach(link => {
 		link.satelliteRadius = config.satellite.radius +
 			config.satellite.width.gap +
-			affinities.visibleAcronyms().reduce((o, v) => {
+			affinities.satelliteAcronyms().reduce((o, v) => {
 				return o + (link.metrics.values[v] > 0 ? link.metrics.widths[v] : config.satellite.width.empty)
 			}, 0)
 	})
