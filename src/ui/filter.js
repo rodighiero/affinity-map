@@ -90,7 +90,7 @@ export default (previewLabSet) => {
 
 		toggle.addEventListener('click', () => {
 			sidebar.classList.toggle('open')
-			toggle.textContent = sidebar.classList.contains('open') ? '‹' : '›'
+			toggle.textContent = sidebar.classList.contains('open') ? '›' : '‹'
 		})
 
 		document.getElementById('keyword-filter').addEventListener('input', e => {

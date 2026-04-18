@@ -150,7 +150,7 @@ button {
 	width: 180px;
 	height: 180px;
 	bottom: 0;
-	right: 0;
+	left: 0;
 }
 
 /******************************************************************************
@@ -159,7 +159,7 @@ button {
 
 #logo-corner {
 	position: fixed;
-	bottom: 24px;
+	top: 16px;
 	left: 16px;
 	z-index: 10;
 	display: flex;
@@ -235,12 +235,12 @@ button {
 
 #sidebar {
 	position: fixed;
-	left: 0;
+	right: 0;
 	top: 0;
 	bottom: 0;
 	width: 220px;
 	background: rgba(25, 25, 25, 0.92);
-	transform: translateX(-220px);
+	transform: translateX(220px);
 	transition: transform 0.3s ease;
 	z-index: 100;
 	display: flex;
@@ -253,7 +253,7 @@ button {
 
 #sidebar-toggle {
 	position: absolute;
-	right: -28px;
+	left: -28px;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 28px;
@@ -263,7 +263,7 @@ button {
 	color: rgba(255, 255, 255, 0.6);
 	font-size: 18px;
 	cursor: pointer;
-	border-radius: 0 6px 6px 0;
+	border-radius: 6px 0 0 6px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
