@@ -1,5 +1,4 @@
 import { zoom, zoomIdentity } from 'd3-zoom'
-import { select } from 'd3-selection'
 
 import s from '../settings/config'
 import state from '../settings/state'
@@ -69,9 +68,8 @@ const getFullExtentTransformationValues = graph => {
 	}), { xMin: Number.MAX_VALUE, xMax: Number.MIN_VALUE, yMin: Number.MAX_VALUE, yMax: Number.MIN_VALUE }
 	)
 
-	// the class of each element of the interface from which to compute the margin (ex: top : .interface.bottom)
 	const margin = {
-		top: select('.interface.top').node().getBoundingClientRect().bottom,
+		top: 0,
 		bottom: 40,
 	}
 
