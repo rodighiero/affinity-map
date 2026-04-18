@@ -9,11 +9,13 @@ export default (previewLabSet, filterLabs) => {
 
 	const cats = {
 		inst: 'inst',
+		kw: 'kw',
 		lab: 'lab',
 	}
 	const invCats = Object.keys(cats).reduce((o, k) => ({ ...o, [cats[k]]: k }), {})
 	const catNames = {
 		inst: ['Institute', 'Institutes'],
+		kw: ['Keyword', 'Keywords'],
 		lab: ['Zoom to Laboratory', 'Laboratories'],
 	}
 
@@ -27,6 +29,15 @@ export default (previewLabSet, filterLabs) => {
 			const inst = node.attr.institute || 'Other'
 			if (!o[inst]) o[inst] = []
 			o[inst].push(node.attr.name)
+			return o
+		}, {})
+
+		// Collect keywords → labs mapping (only keywords shared by ≥2 labs)
+		const kwMap = nodes.reduce((o, node) => {
+			;(node.attr.keywords || []).forEach(kw => {
+				if (!o[kw]) o[kw] = []
+				o[kw].push(node.attr.name)
+			})
 			return o
 		}, {})
 
@@ -44,8 +55,21 @@ export default (previewLabSet, filterLabs) => {
 					})),
 			},
 			{
-				label: catNames.lab[1],
+				label: catNames.kw[1],
 				id: 1,
+				disabled: false,
+				choices: Object.entries(kwMap)
+					.filter(([, labs]) => labs.length >= 2)
+					.sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
+					.map(([kw, labs]) => ({
+						value: kw,
+						label: kw,
+						customProperties: { cat: 'kw', labs },
+					})),
+			},
+			{
+				label: catNames.lab[1],
+				id: 2,
 				disabled: false,
 				choices: [...nodes]
 					.sort((a, b) => a.attr.name.localeCompare(b.attr.name))
@@ -189,7 +213,7 @@ export default (previewLabSet, filterLabs) => {
 			document.getElementById('choices-multiple-groups'),
 			{
 				placeholder: true,
-				placeholderValue: 'Search labs or filter by institute…',
+				placeholderValue: 'Search labs, keywords, or filter by institute…',
 				removeItemButton: true,
 				callbackOnCreateTemplates,
 				searchResultLimit: 1000,
