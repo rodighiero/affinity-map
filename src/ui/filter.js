@@ -4,9 +4,11 @@ export default (previewLabSet) => {
 	const active = new Set()
 
 	const allKeywords = () => {
-		const all = new Set()
-		_graph.nodes.forEach(n => (n.attr.keywords || []).forEach(k => all.add(k)))
-		return [...all].sort()
+		const freq = {}
+		_graph.nodes.forEach(n => (n.attr.keywords || []).forEach(k => {
+			freq[k] = (freq[k] || 0) + 1
+		}))
+		return Object.keys(freq).filter(k => freq[k] >= 2).sort()
 	}
 
 	const matchingLabs = () => {

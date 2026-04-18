@@ -27,38 +27,78 @@ STOP_WORDS = {
     # Pronouns
     'it', 'its', 'we', 'our', 'you', 'your', 'they', 'their', 'them',
     'he', 'she', 'this', 'that', 'these', 'those', 'which', 'who',
-    # Adverbs and adjectives
+    # Generic adverbs / adjectives
     'how', 'all', 'each', 'both', 'few', 'more', 'most', 'other', 'some',
     'such', 'than', 'too', 'very', 'can', 'just', 'also', 'as', 'if', 'so',
     'then', 'there', 'here', 'only', 'many', 'well', 'new', 'high', 'large',
     'small', 'main', 'major', 'wide', 'specific', 'general', 'different',
     'various', 'important', 'current', 'currently', 'related', 'existing',
     'fundamental', 'significant', 'innovative', 'novel', 'advanced',
-    # Academic noise
+    'above', 'according', 'achieve', 'achieved', 'across', 'after', 'already',
+    'although', 'amount', 'another', 'aspect', 'become', 'becomes', 'basic',
+    'before', 'beyond', 'bring', 'bringing', 'call', 'called', 'carried',
+    'cause', 'central', 'close', 'closed', 'cold', 'combination', 'completed',
+    'complex', 'comprehensive', 'concluded', 'conducted', 'considered',
+    'consisting', 'contribute', 'contributed', 'cover', 'daily', 'deal',
+    'dedicated', 'depend', 'detailed', 'directly', 'discrete',
+    'done', 'driven', 'especially', 'established', 'even', 'expected',
+    'external', 'find', 'first', 'following', 'form', 'found', 'founded',
+    'further', 'furthermore', 'future',
+    'hand', 'head', 'help', 'helps', 'highly', 'huge',
+    'identify', 'improve', 'improved', 'improving', 'inform', 'interested',
+    'internal', 'invited', 'involved', 'isolated', 'issue', 'issued',
+    'kind', 'last', 'latest', 'latter', 'layer', 'lead', 'learn', 'leverage',
+    'limit', 'limiting', 'link', 'linked', 'lives', 'living', 'load',
+    'long', 'longer', 'mainly', 'making', 'mass', 'matter', 'meaning',
+    'much', 'must', 'mutually', 'necessary', 'necessity', 'needs', 'none',
+    'normal', 'obvious', 'often', 'once', 'ongoing', 'open', 'overall',
+    'particular', 'particularly', 'past', 'people', 'personal', 'plan',
+    'point', 'position', 'possibility', 'post', 'potential',
+    'principle', 'principles', 'problems', 'promote', 'promoting', 'protect',
+    'quality', 'questions', 'rare', 'real', 'received', 'recent', 'record',
+    'regional', 'relevant', 'remote', 'report', 'resulting', 'rigid',
+    'safe', 'several', 'shaped', 'shaping', 'short', 'since', 'site',
+    'situations', 'smart', 'sort', 'source', 'space', 'spaces', 'special',
+    'specifically', 'spread', 'state', 'statement', 'stored', 'strong',
+    'student', 'students', 'summary', 'support', 'survey',
+    'technical', 'theoretical', 'theory', 'three', 'time', 'together',
+    'toward', 'towards', 'town', 'track', 'traditional', 'transfer',
+    'turn', 'typical', 'ultimate', 'ultimately', 'understand', 'understanding',
+    'utilize', 'utilized', 'variability', 'view', 'virtual', 'vision',
+    'what', 'where', 'while', 'world', 'year', 'years', 'young',
+    # Academic filler
+    'practice', 'practices', 'strategy', 'strategies', 'approach', 'approaches',
+    'method', 'methods', 'system', 'systems', 'project', 'projects',
+    'order', 'range', 'level', 'type', 'types', 'field', 'area', 'areas',
+    'role', 'scale', 'goal', 'goals', 'mission', 'contribution', 'development',
+    'generation', 'application', 'applications', 'technology', 'technologies',
+    'science', 'sciences', 'process', 'processes', 'activity', 'activities',
+    # Lab / institution tokens
     'lab', 'laboratory', 'epfl', 'research', 'group', 'chair', 'professor',
     'prof', 'center', 'centre', 'unit', 'section', 'team', 'institute',
-    'department', 'school', 'faculty', 'swiss', 'federal', 'lausanne',
-    'number', 'approach', 'approaches', 'method', 'methods', 'system',
-    'systems', 'project', 'projects', 'order', 'range', 'level', 'type',
-    'types', 'field', 'area', 'areas', 'role', 'scale', 'goal', 'goals',
-    'mission', 'contribution', 'development', 'generation', 'application',
-    'applications', 'technology', 'technologies', 'science', 'sciences',
-    # Web/HTML noise
+    'department', 'school', 'faculty', 'swiss', 'federal', 'lausanne', 'enac',
+    'number', 'event', 'events',
+    # Web / HTML noise
     'quot', 'nbsp', 'rsquo', 'ldquo', 'rdquo', 'ndash', 'mdash', 'amp',
     'laquo', 'raquo', 'copy', 'trade', 'euro', 'false', 'true', 'null',
+    'http', 'https',
     # Navigation noise
     'published', 'news', 'read', 'more', 'discover', 'follow', 'subscribe',
     'contact', 'home', 'back', 'next', 'prev', 'page', 'click', 'here',
     'menu', 'search', 'login', 'share', 'print', 'download', 'twitter',
     'linkedin', 'facebook', 'instagram', 'youtube', 'cookie', 'privacy',
-    'award', 'prize', 'congratulations', 'welcome', 'news', 'thesis',
+    'award', 'prize', 'congratulations', 'welcome', 'thesis',
     'dissertation', 'paper', 'journal', 'conference', 'best', 'winner',
     # French noise (from bilingual pages)
     'pour', 'dans', 'avec', 'depuis', 'lors', 'comme', 'mais', 'aussi',
-    'plus', 'moins', 'très', 'bien', 'tous', 'tout', 'cette', 'vous',
+    'plus', 'moins', 'bien', 'tous', 'tout', 'cette', 'vous',
     'nous', 'leur', 'leurs', 'une', 'des', 'les', 'aux', 'par', 'sur',
     'sous', 'entre', 'dont', 'donc', 'ainsi', 'laboratoire', 'recherche',
-    'sein', 'afin', 'notamment', 'permet', 'partir',
+    'sein', 'afin', 'notamment', 'permet', 'partir', 'sont', 'deux',
+    'pour', 'dans', 'avec', 'depuis', 'lors', 'comme', 'mais',
+    'etre', 'faire', 'avoir', 'savoir', 'pouvoir', 'vouloir',
+    'chercher', 'chercheurs', 'objectif', 'objectifs', 'ressources',
+    'oeuvre', 'outils', 'projet', 'projets', 'travaux',
     # Lab name fragments (self-references)
     'alice', 'lipid', 'disal', 'echo', 'lsms', 'lemr', 'wire', 'ceat',
     'lapis', 'cclab', 'ecos', 'aphys', 'ecol', 'topo', 'tsam', 'herus',
@@ -89,12 +129,34 @@ def extract_text_from_html(html):
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
+PLURAL_RULES = [
+    (r'ies$',  'y'),    # communities → community
+    (r'ves$',  'f'),    # leaves → leaf
+    (r'ses$',  's'),    # processes → process
+    (r'xes$',  'x'),    # boxes → box
+    (r'zes$',  'z'),    # quizzes → quiz
+    (r'ches$', 'ch'),   # patches → patch
+    (r'shes$', 'sh'),   # flashes → flash
+    (r'([^aeiou])s$', r'\1'),  # buildings → building (consonant + s)
+]
+
+def lemmatize(word):
+    """Very simple rule-based singular form for English nouns."""
+    import re as _re
+    for pattern, replacement in PLURAL_RULES:
+        if _re.search(pattern, word):
+            candidate = _re.sub(pattern, replacement, word)
+            if len(candidate) >= 4:
+                return candidate
+    return word
+
 def extract_keywords_from_text(text, top_n=40):
-    words = re.findall(r'\b[a-zA-Z]{4,}\b', text.lower())
-    filtered = [w for w in words if w not in STOP_WORDS and not w.isdigit()]
+    words = re.findall(r'\b[a-zA-Z]{5,}\b', text.lower())  # min 5 chars
+    filtered = [lemmatize(w) for w in words if w not in STOP_WORDS and not w.isdigit()]
+    filtered = [w for w in filtered if w not in STOP_WORDS]  # re-check after lemmatize
     counter = Counter(filtered)
-    # Return words appearing at least twice, ranked by frequency
-    return [kw for kw, count in counter.most_common(top_n) if count >= 1]
+    # Only keep words that appear at least twice on the page
+    return [kw for kw, count in counter.most_common(top_n) if count >= 2]
 
 def extract_keywords_from_name(en_name):
     words = re.findall(r'\b[a-zA-Z]{4,}\b', en_name.lower())
