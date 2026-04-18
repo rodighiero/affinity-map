@@ -10,6 +10,10 @@ The visualization loads a JSON dataset describing nodes (laboratories or researc
 
 The build pipeline uses Webpack and Babel, outputting to the `/docs` folder for GitHub Pages deployment.
 
+## Data & Privacy
+
+The laboratory names reflect the actual structure of EPFL's ENAC school at the time the map was developed. However, the names of professors and lab members visible in the visualization are **automatically generated pseudonyms** — they do not correspond to real individuals. This substitution was made to protect the privacy of the people involved.
+
 ## Data Format
 
 The input `data.json` file contains:
