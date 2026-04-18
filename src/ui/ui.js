@@ -95,21 +95,6 @@ export default () => {
 	 * Modal button for credits
 	 ******************************************************************************/
 
-	const modal = document.getElementById('credits')
-	const close = document.getElementById('credits-close-btn')
-
-	close.onclick = () => modal.style.display = 'none'
-
-	const modalClick = dp => {
-		select('#about').on('click', () => {
-			modal.style.display = 'block'
-			dp.closePanel()
-		})
-
-		window.onclick = event => {
-			if (event.target === modal) modal.style.display = 'none'
-		}
-	}
 
 	/******************************************************************************
 	 * Finish the UI initialization, once the data are arrived
@@ -153,8 +138,7 @@ export default () => {
 		checkboxes(that.map)
 		zoomInit(that.map)
 
-		const dp = displayConfig(that.map).init()
-		modalClick(dp)
+		displayConfig(that.map).init()
 
 		if (that.cft) { that.cft.setGraph(graph) }
 		that.cit = canvasInteractionTool(graph).init()
