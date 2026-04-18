@@ -350,13 +350,29 @@ button {
 	box-sizing: border-box;
 }
 
+#sidebar-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 14px;
+}
+
 #sidebar-content h3 {
 	font-size: 10px;
 	letter-spacing: 2px;
 	color: rgba(255, 255, 255, 0.35);
-	margin: 0 0 14px 0;
+	margin: 0;
 	font-weight: 600;
 	text-transform: uppercase;
+}
+
+#kw-clear {
+	background: none;
+	border: none;
+	color: #EB5D00;
+	font-size: 11px;
+	cursor: pointer;
+	padding: 0;
 }
 
 #keyword-filter {
@@ -401,6 +417,16 @@ button {
 	cursor: pointer;
 	accent-color: #EB5D00;
 	flex-shrink: 0;
+}
+
+#keyword-list li.active label {
+	color: #EB5D00;
+}
+
+li.kw-separator {
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	margin: 6px 0;
+	padding: 0;
 }
 input[type=checkbox] {
 	display: none;

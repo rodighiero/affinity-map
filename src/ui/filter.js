@@ -19,32 +19,58 @@ export default (previewLabSet) => {
 		return labSet
 	}
 
+	const makeClearBtn = () => {
+		const btn = document.getElementById('kw-clear')
+		if (active.size > 0) {
+			btn.style.display = 'inline'
+		} else {
+			btn.style.display = 'none'
+		}
+	}
+
+	const makeItem = (k) => {
+		const li = document.createElement('li')
+		if (active.has(k)) li.classList.add('active')
+
+		const cb = document.createElement('input')
+		cb.type = 'checkbox'
+		cb.id = `kw-${k}`
+		cb.checked = active.has(k)
+		cb.addEventListener('change', () => {
+			cb.checked ? active.add(k) : active.delete(k)
+			previewLabSet(_graph, matchingLabs())
+			renderList(document.getElementById('keyword-filter')?.value || '')
+		})
+
+		const label = document.createElement('label')
+		label.htmlFor = `kw-${k}`
+		label.textContent = k
+
+		li.appendChild(cb)
+		li.appendChild(label)
+		return li
+	}
+
 	const renderList = (filterText = '') => {
 		const list = document.getElementById('keyword-list')
 		list.innerHTML = ''
 		const lower = filterText.toLowerCase()
-		allKeywords()
-			.filter(k => k.toLowerCase().includes(lower))
-			.forEach(k => {
-				const li = document.createElement('li')
+		const keywords = allKeywords()
 
-				const cb = document.createElement('input')
-				cb.type = 'checkbox'
-				cb.id = `kw-${k}`
-				cb.checked = active.has(k)
-				cb.addEventListener('change', () => {
-					cb.checked ? active.add(k) : active.delete(k)
-					previewLabSet(_graph, matchingLabs())
-				})
+		const activeKws = keywords.filter(k => active.has(k))
+		const inactiveKws = keywords.filter(k => !active.has(k) && k.toLowerCase().includes(lower))
 
-				const label = document.createElement('label')
-				label.htmlFor = `kw-${k}`
-				label.textContent = k
+		activeKws.forEach(k => list.appendChild(makeItem(k)))
 
-				li.appendChild(cb)
-				li.appendChild(label)
-				list.appendChild(li)
-			})
+		if (activeKws.length > 0 && inactiveKws.length > 0) {
+			const sep = document.createElement('li')
+			sep.className = 'kw-separator'
+			list.appendChild(sep)
+		}
+
+		inactiveKws.forEach(k => list.appendChild(makeItem(k)))
+
+		makeClearBtn()
 	}
 
 	that.setGraph = graph => {
@@ -69,6 +95,10 @@ export default (previewLabSet) => {
 
 		document.getElementById('keyword-filter').addEventListener('input', e => {
 			renderList(e.target.value)
+		})
+
+		document.getElementById('kw-clear').addEventListener('click', () => {
+			that.reset()
 		})
 
 		return that
