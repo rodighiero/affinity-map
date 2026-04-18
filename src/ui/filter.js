@@ -77,14 +77,14 @@ export default (previewLabSet, filterLabs) => {
 			item: data =>
 				template(`
 					<div class="${classNames.item} ${data.highlighted ? classNames.highlightedState : classNames.itemSelectable}" data-item data-id="${data.id}" data-value="${data.value}" ${data.active ? 'aria-selected="true"' : ''} ${data.disabled ? 'aria-disabled="true"' : ''}>
-						${invCats[data.customProperties.cat]}: ${data.label}
+						${data.customProperties ? invCats[data.customProperties.cat] + ': ' : ''}${data.label}
 						<span class="choices__button" data-button aria-label="Remove item: '${data.value}'">x</span>
 					</div>
 				`),
 			choice: data =>
 				template(`
-					<div class="${classNames.item} ${classNames.itemChoice} ${data.disabled ? classNames.itemDisabled : classNames.itemSelectable}" data-select-text="${data.customProperties ? catNames[data.customProperties.cat][0] : this.config.itemSelectText}" data-choice ${data.disabled ? 'data-choice-disabled aria-disabled="true"' : 'data-choice-selectable'} data-id="${data.id}" data-value="${data.value}" ${data.groupId > 0 ? 'role="treeitem"' : 'role="option"'}>
-						${data.label}${data.customProperties.acronym ? ` <span class="labacronym">${data.customProperties.acronym}</span>` : ''}
+					<div class="${classNames.item} ${classNames.itemChoice} ${data.disabled ? classNames.itemDisabled : classNames.itemSelectable}" data-choice ${data.disabled ? 'data-choice-disabled aria-disabled="true"' : 'data-choice-selectable'} data-id="${data.id}" data-value="${data.value}" ${data.groupId > 0 ? 'role="treeitem"' : 'role="option"'}>
+						${data.label}${data.customProperties && data.customProperties.acronym ? ` <span class="labacronym">${data.customProperties.acronym}</span>` : ''}
 					</div>
 				`),
 		}
