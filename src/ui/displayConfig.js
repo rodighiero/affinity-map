@@ -74,7 +74,7 @@ export default (map) => {
 			// Label in the gap between arcs
 			const txt = g.append('text')
 				.attr('fill', color())
-				.attr('font-size', 8)
+				.attr('font-size', 9)
 				.attr('font-weight', 'bold')
 				.attr('letter-spacing', 1)
 				.attr('font-family', 'Arial')
