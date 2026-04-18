@@ -79,11 +79,6 @@ const Simulation = map => {
 			.force('center', forceCenter(0, 0))
 
 		map.isConverged = false
-
-		// Pre-heat: run silently so nodes start in a spread position,
-		// avoiding the narrow-column artifact on first render.
-		that.simulation.tick(150)
-
 		const alphaDecay = that.simulation.alphaDecay()
 		const alphaMin = that.simulation.alphaMin()
 
