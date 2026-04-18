@@ -85,14 +85,6 @@ export default (previewLabSet) => {
 	}
 
 	that.init = () => {
-		const toggle = document.getElementById('sidebar-toggle')
-		const sidebar = document.getElementById('sidebar')
-
-		toggle.addEventListener('click', () => {
-			sidebar.classList.toggle('open')
-			toggle.textContent = sidebar.classList.contains('open') ? '›' : '‹'
-		})
-
 		document.getElementById('keyword-filter').addEventListener('input', e => {
 			renderList(e.target.value)
 		})
