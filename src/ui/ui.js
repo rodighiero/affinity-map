@@ -43,7 +43,7 @@ export default () => {
 		newLabel.append('text')
 			.text(d => ' ' + a.name(d).slice(0, 1).toUpperCase() + a.name(d).slice(1))
 
-		inputs.on('change', function (d) {
+		inputs.on('change', function (event, d) {
 			const inputValue = select(this).property('checked')
 			state.activation[d] = inputValue
 			map.restart()

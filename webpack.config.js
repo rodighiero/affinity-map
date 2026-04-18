@@ -11,19 +11,22 @@ module.exports = {
 	},
 	optimization: {
 		splitChunks: {
-			chunks: 'all'
+			chunks: 'all',
+			cacheGroups: {
+				styles: {
+					type: 'css/mini-extract',
+					chunks: 'all',
+					enforce: true,
+					name: 'main',
+				},
+			},
 		}
 	},
 	module: {
 		rules: [
 			{
 				test: /\.(png|svg)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {},
-					},
-				],
+				type: 'asset/resource',
 			},
 			{
 				test: /\.js$/,
